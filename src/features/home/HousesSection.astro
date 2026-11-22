@@ -14,19 +14,25 @@ const { locale } = Astro.props;
 const { studio, rituals } = homeContent[locale];
 ---
 
-<section id="casas" class="grid grid-cols-1 text-cream md:grid-cols-2">
-  <HouseCard
-    id="studio"
-    house={studio}
-    image={studioImage}
-    href={pagePath("studio", locale)}
-    class="bg-eucalyptus"
-  />
-  <HouseCard
-    id="rituals"
-    house={rituals}
-    image={ritualsImage}
-    href={pagePath("rituals", locale)}
-    class="bg-aubergine"
-  />
+{/* Each half's color bleeds to its edge of the screen while the cards stay within the page width. */}
+<section
+  id="casas"
+  class="text-cream md:bg-linear-to-r md:from-eucalyptus md:from-50% md:to-aubergine md:to-50%"
+>
+  <div class="mx-auto grid max-w-page grid-cols-1 md:grid-cols-2">
+    <HouseCard
+      id="studio"
+      house={studio}
+      image={studioImage}
+      href={pagePath("studio", locale)}
+      class="bg-eucalyptus"
+    />
+    <HouseCard
+      id="rituals"
+      house={rituals}
+      image={ritualsImage}
+      href={pagePath("rituals", locale)}
+      class="bg-aubergine"
+    />
+  </div>
 </section>

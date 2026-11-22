@@ -53,6 +53,7 @@ const {
     class="pt-2"
   />
   <Grid
+    fullBleed
     startOnMobile
     class="items-center gap-y-5 font-display font-light tracking-display"
   >
@@ -93,7 +94,7 @@ const {
       {endWord}
     </span>
   </Grid>
-  <Grid startOnMobile class:list={["items-end", labelText]}>
+  <Grid fullBleed startOnMobile class:list={["items-end", labelText]}>
     <p class="col-span-full m-0 py-3 md:justify-self-center">
       {ui[locale].scrollHint}
     </p>

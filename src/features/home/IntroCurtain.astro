@@ -6,18 +6,24 @@ const logo = await getImage({ src: wordmarkLight, format: "png" });
 ---
 
 {/*
-  The design's opening: a plum curtain of pixels with the wordmark that dissolves cell by cell.
-  It only covers the hero, plays on every load and is skipped with reduced motion, as in the design.
+  The site's entrance: a plum curtain over the whole screen with the wordmark, which then dissolves
+  cell by cell to reveal the home page. It plays on every load from the top of the page, and the page
+  can't be scrolled or used until it ends. Skipped with reduced motion, as in the design.
 */}
 <script is:inline>
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    document.documentElement.classList.add("intro");
+    const root = document.documentElement;
+    root.classList.add("intro");
+    history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+    // Safety net: never leave the page locked if the animation script fails to run.
+    setTimeout(() => root.classList.remove("intro"), 5000);
   }
 </script>
 <div
   data-intro
   aria-hidden="true"
-  class="pointer-events-none absolute inset-0 z-50 hidden bg-aubergine in-[.intro]:block"
+  class="fixed inset-0 z-50 hidden bg-aubergine in-[.intro]:block"
 >
   <canvas class="absolute inset-0 size-full"></canvas>
   <img

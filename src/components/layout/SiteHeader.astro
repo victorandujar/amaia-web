@@ -1,116 +1,60 @@
 ---
-import { Image } from "astro:assets";
-import monogramDark from "../../assets/brand/monogram-dark.svg";
-import monogramLight from "../../assets/brand/monogram-light.svg";
-import wordmarkLight from "../../assets/brand/wordmark-light.png";
 import type { Locale } from "../../i18n/locales";
-import { manifestoPath, pagePath, type PageKey } from "../../i18n/routes";
-import { ui } from "../../i18n/ui";
-import { links } from "../../lib/links";
-
-type Tone = "light" | "dark";
+import type { PageKey } from "../../i18n/routes";
+import HeaderBar from "./HeaderBar.astro";
 
 interface Props {
   locale: Locale;
   page: PageKey;
-  tone: Tone;
-  /** The home page shows the wordmark; inner pages show the monogram. */
+  /** Text color at the top of the page: light on the dark heroes, dark on Sobre mí. */
+  tone: "light" | "dark";
   logo: "wordmark" | "monogram";
+  /** Distance from the top of the screen to the header content. */
   class?: string;
+  /**
+   * Inner pages lay their hero out below the header: an invisible copy keeps that space,
+   * so the hero looks exactly as designed while the real header floats above.
+   */
+  reserveSpace?: boolean;
 }
 
-const { locale, page, tone, logo, class: className } = Astro.props;
-const t = ui[locale];
-const otherLocale: Locale = locale === "es" ? "en" : "es";
-
-const logoImage =
-  logo === "wordmark"
-    ? wordmarkLight
-    : tone === "light"
-      ? monogramLight
-      : monogramDark;
-const logoClass =
-  logo === "wordmark" ? "aspect-412/132 h-7 w-auto" : "h-8.5 w-auto";
-
-const navItems: { key: PageKey | "manifesto"; label: string; href: string }[] =
-  [
-    { key: "studio", label: t.nav.studio, href: pagePath("studio", locale) },
-    { key: "rituals", label: t.nav.rituals, href: pagePath("rituals", locale) },
-    { key: "manifesto", label: t.nav.manifesto, href: manifestoPath(locale) },
-    { key: "about", label: t.nav.about, href: pagePath("about", locale) },
-  ];
-
-const toneClasses: Record<Tone, { dot: string; cta: string }> = {
-  light: { dot: "bg-lilac", cta: "border-cream/80" },
-  dark: { dot: "bg-plum", cta: "border-ink/70" },
-};
+const {
+  locale,
+  page,
+  tone,
+  logo,
+  class: className,
+  reserveSpace = false,
+} = Astro.props;
+const layout =
+  "flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-5 md:gap-y-3 md:px-12";
 ---
 
+{/*
+  Always visible at the top of the screen as glass: a blur over the page, with no fill.
+  It starts in the page's own color and switches to light or dark text depending on the
+  section beneath it, so it stays readable everywhere.
+*/}
 <header
+  data-site-header
+  data-tone={tone}
   class:list={[
-    "flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-5 md:gap-y-3 md:px-12",
+    "group fixed inset-x-0 top-0 z-40 pb-3 text-cream backdrop-blur-md transition-colors duration-300 data-[tone=dark]:text-ink",
+    layout,
     className,
   ]}
 >
-  <a
-    href={pagePath("home", locale)}
-    aria-label={t.homeLinkLabel}
-    class="inline-flex min-h-11 items-center"
-  >
-    <Image
-      src={logoImage}
-      alt={t.logoAlt}
-      class={logoClass}
-      densities={[1, 2]}
-      loading="eager"
-    />
-  </a>
-  <nav
-    aria-label={t.primaryNavLabel}
-    class="flex w-full flex-wrap items-center gap-x-4 gap-y-0 text-15 md:w-auto md:gap-7"
-  >
-    {navItems.map((item) =>
-      item.key === page ? (
-        // The current page sits between two small dots, as in the design.
-        <a
-          href={item.href}
-          aria-current="page"
-          class="inline-flex items-center gap-2.5 py-3 font-medium"
-        >
-          <span
-            aria-hidden="true"
-            class:list={[
-              "size-1.25 flex-none rounded-full",
-              toneClasses[tone].dot,
-            ]}
-          />
-          {item.label}
-          <span
-            aria-hidden="true"
-            class:list={[
-              "size-1.25 flex-none rounded-full",
-              toneClasses[tone].dot,
-            ]}
-          />
-        </a>
-      ) : (
-        <a href={item.href} class="py-3">
-          {item.label}
-        </a>
-      ),
-    )}
-    <a href={pagePath(page, otherLocale)} hreflang={otherLocale} class="py-3">
-      <span lang={otherLocale}>{t.languageSwitch.text}</span>
-      <span class="sr-only"> · {t.languageSwitch.label}</span>
-    </a>
-    <a
-      href={links.contact}
-      class:list={[
-        "box-content inline-flex min-h-11 items-center border px-5 text-14 font-medium",
-        toneClasses[tone].cta,
-      ]}
-    >
-      {t.writeToMe}
-    </a>
-  </nav>
+  <HeaderBar locale={locale} page={page} logo={logo} />
 </header>
+{reserveSpace && (
+  <div aria-hidden="true" inert class:list={["invisible pt-2", layout]}>
+    <HeaderBar locale={locale} page={page} logo={logo} />
+  </div>
+)}
+
+<script>
+  import { followBackground } from "./header-tone";
+
+  const header = document.querySelector<HTMLElement>("[data-site-header]");
+  if (header) followBackground(header);
+</script>

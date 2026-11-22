@@ -36,13 +36,23 @@ function intersect(a: Rect, b: Rect): Rect | null {
 }
 
 export function playIntro(curtain: HTMLElement): void {
+  // While the curtain is up the page can't be scrolled (`.intro` on <html>) nor reached by keyboard.
+  const page = curtain.closest("main");
+  const endIntro = (): void => {
+    curtain.remove();
+    page?.removeAttribute("inert");
+    document.documentElement.classList.remove("intro");
+  };
+
   const canvas = curtain.querySelector("canvas");
   const logo = curtain.querySelector("img");
   const context = canvas?.getContext("2d");
   if (!canvas || !logo || !context) {
-    curtain.remove();
+    endIntro();
     return;
   }
+
+  page?.setAttribute("inert", "");
 
   const isMobile = window.matchMedia("(max-width: 760px)").matches;
   const grid = isMobile ? introGrids.mobile : introGrids.desktop;
@@ -109,8 +119,7 @@ export function playIntro(curtain: HTMLElement): void {
   const frame = (now: number): void => {
     const elapsed = now - start;
     if (elapsed >= CURTAIN_ENDS_AT) {
-      curtain.remove();
-      document.documentElement.classList.remove("intro");
+      endIntro();
       return;
     }
 

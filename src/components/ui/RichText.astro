@@ -1,0 +1,15 @@
+---
+import type { RichText } from "../../lib/rich-text";
+
+interface Props {
+  text: RichText;
+}
+
+const { text } = Astro.props;
+---
+
+{text.map((segment) => {
+  if (typeof segment === "string") return segment;
+  if ("em" in segment) return <span class="italic">{segment.em}</span>;
+  return <br />;
+})}

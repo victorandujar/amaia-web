@@ -93,20 +93,25 @@ Think before coding: read the existing code, find the right place, reuse existin
 
 ## 6. Architecture
 
-Starting structure (only create folders when needed):
+Project structure:
 
 ```
 src/
+├── assets/          # images and brand files, processed by astro:assets
 ├── components/
-│   ├── ui/          # small reusable primitives (Button, Link, …) — only if reused
-│   ├── layout/      # Header, Footer, Navigation
-│   └── <page>/      # page-specific sections, e.g. home/Hero.astro
-├── layouts/         # BaseLayout.astro (head, meta, fonts, header, footer)
-├── pages/           # thin: compose layout + sections
-├── content/         # copy/structured content when it is reused or structured
-├── styles/global.css
-└── assets/          # images processed by astro:assets
+│   ├── layout/      # Grid, SiteHeader, SiteFooter
+│   └── ui/          # small reusable primitives (Button, SectionLabel, RichText, …)
+├── features/<page>/ # one folder per page: its sections, its copy (<page>.content.ts) and the page component
+├── i18n/            # locales, routes per locale, shared UI strings
+├── layouts/         # BaseLayout.astro (head, fonts, reveal observer)
+├── lib/             # cross-cutting modules: links, motion, typography class sets
+├── pages/           # thin route files: `/` (es) and `/en/` (en)
+└── styles/global.css
 ```
+
+- **i18n:** Spanish is the default locale (no prefix), English lives under `/en/`. Every copy lives in a typed `Localized<T>` object; components never hardcode text.
+- **Links** whose destination is still open live in `src/lib/links.ts` only.
+- **Motion:** use the `reveal` / `materia` class sets from `src/lib/motion.ts` together with the `data-reveal` attribute. Never write keyframes or custom CSS for animations.
 
 - **Pages orchestrate**; they don't contain large markup or logic.
 - **Layouts** own shared structure (head, metadata, header, footer). Never duplicate them.

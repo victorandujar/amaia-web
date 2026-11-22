@@ -1,24 +1,56 @@
 ---
+import "@fontsource-variable/newsreader/opsz.css";
+import "@fontsource-variable/newsreader/opsz-italic.css";
+import "@fontsource-variable/schibsted-grotesk/wght.css";
 import "../styles/global.css";
+import type { Locale } from "../i18n/locales";
 
 interface Props {
   title: string;
   description: string;
+  locale: Locale;
+  /** Page background, visible on overscroll. */
+  class?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, locale, class: className } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+    <slot name="head" />
   </head>
-  <body class="antialiased">
+  <body
+    class:list={[
+      "font-sans leading-[normal] text-ink [&_:is(h1,h2,h3)]:text-balance [&_a:hover]:opacity-75 [&_p]:text-pretty",
+      className,
+    ]}
+  >
     <slot />
+    <script>
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            entry.target.setAttribute("data-inview", "");
+            revealObserver.unobserve(entry.target);
+          }
+        },
+        { rootMargin: "0px 0px -8% 0px" },
+      );
+
+      for (const element of document.querySelectorAll("[data-reveal]")) {
+        revealObserver.observe(element);
+      }
+    </script>
   </body>
 </html>

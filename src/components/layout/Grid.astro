@@ -1,0 +1,20 @@
+---
+interface Props {
+  as?: "div" | "header" | "footer" | "figure";
+  class?: string;
+  id?: string;
+}
+
+const { as: Tag = "div", class: className, ...attrs } = Astro.props;
+---
+
+{/* The design's 12-column grid (4 columns on mobile). Row gaps are set by each use. */}
+<Tag
+  class:list={[
+    "grid w-full grid-cols-4 gap-x-3 px-5 md:grid-cols-12 md:gap-x-6 md:px-12",
+    className,
+  ]}
+  {...attrs}
+>
+  <slot />
+</Tag>

@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+/* Design tokens from the "Amaïa · home" canvas are added here, and only here (AGENTS.md §4). */
+@theme {
+}

@@ -1,0 +1,101 @@
+---
+import type { Locale } from "../../i18n/locales";
+import type { PageKey } from "../../i18n/routes";
+import { ui } from "../../i18n/ui";
+import { materia } from "../../lib/motion";
+import { labelText } from "../../lib/typography";
+import Grid from "../layout/Grid.astro";
+import SiteHeader from "../layout/SiteHeader.astro";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+  /** Visually hidden page title: the big words are decorative. */
+  title: string;
+  tone: "light" | "dark";
+  startWord: string;
+  endWord: string;
+  /** Section colors and spacing. */
+  class?: string;
+  /** Size and color of both words. */
+  wordsClass: string;
+  startWordClass?: string;
+  endWordClass?: string;
+}
+
+const {
+  locale,
+  page,
+  title,
+  tone,
+  startWord,
+  endWord,
+  class: className,
+  wordsClass,
+  startWordClass,
+  endWordClass,
+} = Astro.props;
+---
+
+{/* The inner pages' opening: the page name split around a picture, condensing out of mist. */}
+<section
+  class:list={[
+    "relative flex flex-col justify-between gap-7 overflow-hidden pt-4 pb-6 md:min-h-225",
+    className,
+  ]}
+>
+  <h1 class="sr-only">{title}</h1>
+  <SiteHeader
+    locale={locale}
+    page={page}
+    tone={tone}
+    logo="monogram"
+    class="pt-2"
+  />
+  <Grid
+    startOnMobile
+    class="items-center gap-y-5 font-display font-light tracking-display"
+  >
+    <span
+      aria-hidden="true"
+      data-reveal
+      class:list={[
+        "col-span-full self-start leading-090 md:col-span-4 md:col-start-1 md:row-start-1 md:justify-self-end",
+        wordsClass,
+        materia,
+        "delay-500",
+        startWordClass,
+      ]}
+    >
+      {startWord}
+    </span>
+    <figure
+      data-reveal
+      class:list={[
+        "col-span-full m-0 w-full max-w-[78%] self-start md:col-span-4 md:col-start-5 md:row-start-1 md:max-w-108 md:self-auto md:justify-self-center",
+        materia,
+        "delay-800",
+      ]}
+    >
+      <slot />
+    </figure>
+    <span
+      aria-hidden="true"
+      data-reveal
+      class:list={[
+        "col-span-full self-start leading-090 md:col-span-4 md:col-start-9 md:row-start-1 md:self-end",
+        wordsClass,
+        materia,
+        "delay-1200",
+        endWordClass,
+      ]}
+    >
+      {endWord}
+    </span>
+  </Grid>
+  <Grid startOnMobile class:list={["items-end", labelText]}>
+    <p class="col-span-full m-0 py-3 md:justify-self-center">
+      {ui[locale].scrollHint}
+    </p>
+  </Grid>
+</section>

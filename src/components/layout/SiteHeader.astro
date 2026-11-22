@@ -1,0 +1,95 @@
+---
+import { Image } from "astro:assets";
+import monogramDark from "../../assets/brand/monogram-dark.svg";
+import monogramLight from "../../assets/brand/monogram-light.svg";
+import wordmarkLight from "../../assets/brand/wordmark-light.png";
+import type { Locale } from "../../i18n/locales";
+import { manifestoPath, pagePath, type PageKey } from "../../i18n/routes";
+import { ui } from "../../i18n/ui";
+import { links } from "../../lib/links";
+
+type Tone = "light" | "dark";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+  tone: Tone;
+  /** The home page shows the wordmark; inner pages show the monogram. */
+  logo: "wordmark" | "monogram";
+  class?: string;
+}
+
+const { locale, page, tone, logo, class: className } = Astro.props;
+const t = ui[locale];
+const otherLocale: Locale = locale === "es" ? "en" : "es";
+
+const logoImage =
+  logo === "wordmark"
+    ? wordmarkLight
+    : tone === "light"
+      ? monogramLight
+      : monogramDark;
+const logoClass =
+  logo === "wordmark" ? "aspect-412/132 h-7 w-auto" : "h-8.5 w-auto";
+
+const navItems: { key: PageKey | "manifesto"; label: string; href: string }[] =
+  [
+    { key: "studio", label: t.nav.studio, href: pagePath("studio", locale) },
+    { key: "rituals", label: t.nav.rituals, href: pagePath("rituals", locale) },
+    { key: "manifesto", label: t.nav.manifesto, href: manifestoPath(locale) },
+    { key: "about", label: t.nav.about, href: pagePath("about", locale) },
+  ];
+
+const toneClasses: Record<Tone, { current: string; cta: string }> = {
+  light: { current: "border-b border-lilac", cta: "border-cream/80" },
+  dark: { current: "border-b border-plum", cta: "border-ink/70" },
+};
+---
+
+<header
+  class:list={[
+    "flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-5 md:gap-y-3 md:px-12",
+    className,
+  ]}
+>
+  <a
+    href={pagePath("home", locale)}
+    aria-label={t.homeLinkLabel}
+    class="inline-flex min-h-11 items-center"
+  >
+    <Image
+      src={logoImage}
+      alt={t.logoAlt}
+      class={logoClass}
+      densities={[1, 2]}
+      loading="eager"
+    />
+  </a>
+  <nav
+    aria-label={t.primaryNavLabel}
+    class="flex w-full flex-wrap items-center gap-x-4 gap-y-0 text-15 md:w-auto md:gap-7"
+  >
+    {navItems.map((item) => (
+      <a
+        href={item.href}
+        aria-current={item.key === page ? "page" : undefined}
+        class:list={["py-3", item.key === page && toneClasses[tone].current]}
+      >
+        {item.label}
+      </a>
+    ))}
+    <a href={pagePath(page, otherLocale)} hreflang={otherLocale} class="py-3">
+      <span lang={otherLocale}>{t.languageSwitch.text}</span>
+      <span class="sr-only"> · {t.languageSwitch.label}</span>
+    </a>
+    <a
+      href={links.contact}
+      class:list={[
+        "box-content inline-flex min-h-11 items-center border px-5 text-14 font-medium",
+        toneClasses[tone].cta,
+      ]}
+    >
+      {t.writeToMe}
+    </a>
+  </nav>
+</header>

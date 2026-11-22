@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens from the "Amaïa · home" canvas. This is the only stylesheet in the
+ * project (AGENTS.md §4): tokens only, every style lives in Tailwind utilities.
+ */
+@theme {
+  /* Desktop layout starts where the design's mobile rules (max-width: 760px) end. */
+  --breakpoint-md: 761px;
+
+  --font-sans:
+    "Schibsted Grotesk Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Newsreader Variable", Georgia, serif;
+
+  --color-ivory: #f2efe9;
+  --color-cream: #f3eee4;
+  --color-linen: #ebe8e1;
+  --color-stone: #ece8e1;
+  --color-lavender: #e4e0e6;
+  --color-ink: #241c21;
+  --color-ink-soft: #3b2a2e;
+  --color-ink-plum: #362545;
+  --color-shade: #1e181b;
+  --color-night: #2e2329;
+  --color-forest: #2c3128;
+  --color-eucalyptus: #3e4a43;
+  --color-aubergine: #3d2036;
+  --color-plum: #6e355f;
+  --color-plum-veil: #573450;
+  --color-lilac: #cbb8e6;
+  --color-mist-sand: #dcd9d0;
+  --color-mist-lilac: #d8d3dc;
+  --color-mist-stone: #e0ddd4;
+  --color-mist-mauve: #d6cdd9;
+
+  --text-11: 11px;
+  --text-14: 14px;
+  --text-15: 15px;
+  --text-16: 16px;
+  --text-17: 17px;
+  --text-18: 18px;
+  --text-20: 20px;
+  --text-22: 22px;
+  --text-24: 24px;
+  --text-25: 25px;
+  --text-26: 26px;
+  --text-27: 27px;
+  --text-28: 28px;
+  --text-30: 30px;
+  --text-32: 32px;
+  --text-36: 36px;
+  --text-40: 40px;
+  --text-42: 42px;
+  --text-52: 52px;
+  --text-54: 54px;
+  --text-56: 56px;
+  --text-60: 60px;
+  --text-64: 64px;
+  --text-72: 72px;
+  --text-76: 76px;
+  --text-84: 84px;
+  --text-88: 88px;
+  --text-96: 96px;
+  --text-112: 112px;
+  --text-120: 120px;
+  --text-128: 128px;
+  --text-144: 144px;
+
+  /* Unitless line heights, named after their value (092 = 0.92). */
+  --leading-090: 0.9;
+  --leading-092: 0.92;
+  --leading-095: 0.95;
+  --leading-096: 0.96;
+  --leading-098: 0.98;
+  --leading-100: 1;
+  --leading-102: 1.02;
+  --leading-104: 1.04;
+  --leading-105: 1.05;
+  --leading-110: 1.1;
+  --leading-112: 1.12;
+  --leading-115: 1.15;
+  --leading-116: 1.16;
+  --leading-130: 1.3;
+  --leading-140: 1.4;
+  --leading-145: 1.45;
+  --leading-150: 1.5;
+  --leading-155: 1.55;
+  --leading-160: 1.6;
+  --leading-162: 1.62;
+
+  --tracking-display: -0.02em;
+  --tracking-snug: -0.01em;
+  --tracking-label: 0.14em;
+
+  --blur-veil: 10px;
+  --blur-mist: 16px;
+
+  --ease-materia: cubic-bezier(0.2, 0.6, 0.2, 1);
+}

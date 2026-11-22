@@ -1,0 +1,31 @@
+---
+import RichText from "../../components/ui/RichText.astro";
+import type { Locale } from "../../i18n/locales";
+import { reveal } from "../../lib/motion";
+import { displayText } from "../../lib/typography";
+import { homeContent } from "./home.content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { bridge } = homeContent[locale];
+const phraseClass = [
+  "m-0 px-12 pt-10 pb-16 text-64 leading-100",
+  displayText,
+  reveal,
+];
+---
+
+{/* On mobile each phrase moves into its house card instead. */}
+<section aria-hidden="true" class="hidden bg-forest text-cream md:block">
+  <div class="grid grid-cols-2">
+    <p data-reveal class:list={phraseClass}>
+      <RichText text={bridge.create} />
+    </p>
+    <p data-reveal class:list={[phraseClass, "delay-200"]}>
+      <RichText text={bridge.exist} />
+    </p>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+---
+import { labelText } from "../../lib/typography";
+
+interface Props {
+  text?: string;
+  class?: string;
+}
+
+const { text, class: className } = Astro.props;
+const classes = [
+  "m-0 flex items-baseline justify-between gap-6 border-t pt-3.5",
+  labelText,
+  className,
+];
+---
+
+{text ? (
+  <p class:list={classes}>
+    <span>{text}</span>
+  </p>
+) : (
+  <div aria-hidden="true" class:list={classes} />
+)}

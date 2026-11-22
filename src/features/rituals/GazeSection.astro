@@ -1,0 +1,63 @@
+---
+import Grid from "../../components/layout/Grid.astro";
+import ImagePlaceholder from "../../components/ui/ImagePlaceholder.astro";
+import RichText from "../../components/ui/RichText.astro";
+import SectionLabel from "../../components/ui/SectionLabel.astro";
+import type { Locale } from "../../i18n/locales";
+import { reveal } from "../../lib/motion";
+import { grain } from "../../lib/texture";
+import { displayText } from "../../lib/typography";
+import { ritualsContent } from "./rituals.content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { gaze } = ritualsContent[locale];
+---
+
+<section id="mirada" class="bg-lavender py-18 text-ink md:py-26">
+  <Grid startOnMobile class="items-start gap-y-12">
+    <SectionLabel class="col-span-full border-ink/25 text-ink-soft" />
+    <h2
+      data-reveal
+      class:list={[
+        "col-span-full m-0 text-40 leading-104 md:col-span-8 md:col-start-1 md:text-72 md:leading-098",
+        displayText,
+        reveal,
+      ]}
+    >
+      {gaze.title}
+    </h2>
+    <figure
+      data-reveal
+      class:list={["col-span-full m-0 md:col-span-4 md:col-start-1", reveal]}
+    >
+      <ImagePlaceholder
+        as="span"
+        label={gaze.placeholder.label}
+        tag={gaze.placeholder.tag}
+        description={gaze.placeholder.description}
+        class:list={["aspect-4/5 bg-mist-mauve p-6", grain]}
+        tagClass="text-ink-soft"
+        descriptionClass="text-15 leading-145 text-ink"
+      />
+    </figure>
+    <div
+      data-reveal
+      class:list={[
+        "col-span-full flex flex-col gap-4.5 self-end md:col-span-6 md:col-start-7",
+        reveal,
+        "delay-200",
+      ]}
+    >
+      {gaze.paragraphs.map((paragraph) => (
+        <p class="m-0 text-17 leading-160 md:text-18">{paragraph}</p>
+      ))}
+      <p class="m-0 mt-6 border-t border-ink/25 pt-5 font-display text-28 leading-110 font-light tracking-snug text-plum md:text-40">
+        <RichText text={gaze.motto} />
+      </p>
+    </div>
+  </Grid>
+</section>

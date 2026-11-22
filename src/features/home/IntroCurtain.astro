@@ -1,0 +1,45 @@
+---
+import { getImage } from "astro:assets";
+import wordmarkLight from "../../assets/brand/wordmark-light.png";
+
+const logo = await getImage({ src: wordmarkLight, format: "png" });
+---
+
+{/*
+  The design's opening: a plum curtain of pixels with the wordmark that dissolves cell by cell.
+  It only covers the hero, plays once per session and is skipped with reduced motion.
+*/}
+<script is:inline>
+  try {
+    const motionAllowed = !window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches;
+    if (motionAllowed && !sessionStorage.getItem("amaia-intro-seen")) {
+      document.documentElement.classList.add("intro");
+    }
+  } catch {
+    // Storage can be blocked (private mode): the page simply opens without the intro.
+  }
+</script>
+<div
+  data-intro
+  aria-hidden="true"
+  class="pointer-events-none absolute inset-0 z-50 hidden bg-aubergine in-[.intro]:block"
+>
+  <canvas class="absolute inset-0 size-full"></canvas>
+  <img
+    src={logo.src}
+    alt=""
+    width="330"
+    height="106"
+    class="absolute top-1/2 left-1/2 h-26.5 w-82.5 max-w-none -translate-1/2 opacity-0 max-md:scale-80"
+  />
+</div>
+
+<script>
+  import { playIntro } from "./intro-curtain";
+
+  const curtain = document.querySelector<HTMLElement>("[data-intro]");
+  if (curtain && document.documentElement.classList.contains("intro")) {
+    playIntro(curtain);
+  }
+</script>

@@ -1,0 +1,29 @@
+---
+type Variant = "cream" | "ink" | "lilac" | "outline-cream";
+
+interface Props {
+  href: string;
+  variant: Variant;
+  class?: string;
+}
+
+const variantClasses: Record<Variant, string> = {
+  cream: "bg-cream text-ink",
+  ink: "bg-ink text-ivory",
+  lilac: "bg-lilac text-ink",
+  "outline-cream": "border border-cream/80 text-cream",
+};
+
+const { href, variant, class: className } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    "box-content inline-flex min-h-12 items-center self-start px-6 text-15 font-medium",
+    variantClasses[variant],
+    className,
+  ]}
+>
+  <slot />
+</a>

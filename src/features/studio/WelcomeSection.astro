@@ -1,0 +1,70 @@
+---
+import Grid from "../../components/layout/Grid.astro";
+import SectionLabel from "../../components/ui/SectionLabel.astro";
+import type { Locale } from "../../i18n/locales";
+import { reveal } from "../../lib/motion";
+import { displayText, labelText } from "../../lib/typography";
+import { studioContent } from "./studio.content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { welcome } = studioContent[locale];
+const itemDelays = ["delay-0", "delay-100", "delay-200", "delay-300"];
+---
+
+<section id="bienvenida" class="bg-ivory py-18 text-ink md:py-26">
+  <Grid startOnMobile class="items-end gap-y-10">
+    <SectionLabel class="col-span-full border-ink/25 text-ink-soft" />
+    <h2
+      data-reveal
+      class:list={[
+        "col-span-full m-0 text-40 leading-104 md:col-span-8 md:col-start-1 md:text-96 md:leading-095",
+        displayText,
+        reveal,
+      ]}
+    >
+      {welcome.title}
+    </h2>
+    <div
+      data-reveal
+      class:list={[
+        "col-span-full flex flex-col gap-6 pb-2.5 md:col-span-4 md:col-start-9",
+        reveal,
+        "delay-200",
+      ]}
+    >
+      <p class="m-0 font-display text-17 leading-130 font-light tracking-snug md:text-24">
+        {welcome.lead}
+      </p>
+      <p class="m-0 text-17 leading-155 text-ink-soft md:text-16">
+        {welcome.body}
+      </p>
+    </div>
+    <p
+      class:list={[
+        "col-span-full m-0 mt-24 self-start border-t border-ink/25 pt-3.5 text-ink-soft md:col-span-3 md:col-start-1",
+        labelText,
+      ]}
+    >
+      {welcome.accompaniesLabel}
+    </p>
+    <div class="col-span-full mt-24 flex flex-col self-start border-b border-ink/25 md:col-span-9 md:col-start-4">
+      {welcome.accompanies.map((item, index) => (
+        <p
+          data-reveal
+          class:list={[
+            "m-0 border-t border-ink/25 pt-4.5 pb-5 text-28 leading-102 text-eucalyptus md:text-56",
+            displayText,
+            reveal,
+            itemDelays[index],
+          ]}
+        >
+          {item}
+        </p>
+      ))}
+    </div>
+  </Grid>
+</section>

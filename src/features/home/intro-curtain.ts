@@ -35,14 +35,6 @@ function intersect(a: Rect, b: Rect): Rect | null {
   return { x, y, width: right - x, height: bottom - y };
 }
 
-function markSeen(): void {
-  try {
-    sessionStorage.setItem("amaia-intro-seen", "1");
-  } catch {
-    // Without storage the intro simply plays again on the next visit.
-  }
-}
-
 export function playIntro(curtain: HTMLElement): void {
   const canvas = curtain.querySelector("canvas");
   const logo = curtain.querySelector("img");
@@ -51,8 +43,6 @@ export function playIntro(curtain: HTMLElement): void {
     curtain.remove();
     return;
   }
-
-  markSeen();
 
   const isMobile = window.matchMedia("(max-width: 760px)").matches;
   const grid = isMobile ? introGrids.mobile : introGrids.desktop;

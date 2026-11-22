@@ -22,7 +22,7 @@ const { href, rule, external = false, class: className } = Astro.props;
   target={external ? "_blank" : undefined}
   rel={external ? "noopener noreferrer" : undefined}
   class:list={[
-    "inline-flex min-h-11 items-center self-start border-b text-15 font-medium",
+    "box-content inline-flex min-h-11 items-center self-start border-b text-15 font-medium",
     ruleClasses[rule],
     className,
   ]}

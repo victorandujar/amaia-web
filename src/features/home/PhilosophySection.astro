@@ -1,0 +1,101 @@
+---
+import { Image } from "astro:assets";
+import flowersImage from "../../assets/images/home-philosophy-flowers.jpg";
+import mothImage from "../../assets/images/home-philosophy-moth.jpg";
+import shadowImage from "../../assets/images/home-philosophy-shadow.jpg";
+import sproutsImage from "../../assets/images/home-philosophy-sprouts.jpg";
+import Grid from "../../components/layout/Grid.astro";
+import RichText from "../../components/ui/RichText.astro";
+import SectionLabel from "../../components/ui/SectionLabel.astro";
+import UnderlineLink from "../../components/ui/UnderlineLink.astro";
+import type { Locale } from "../../i18n/locales";
+import { links } from "../../lib/links";
+import { reveal } from "../../lib/motion";
+import { displayText } from "../../lib/typography";
+import { homeContent } from "./home.content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { philosophy } = homeContent[locale];
+
+const pairs = [
+  {
+    class: "md:col-span-5 md:col-start-8",
+    images: [
+      { src: flowersImage, alt: philosophy.imageAlts.flowers },
+      { src: sproutsImage, alt: philosophy.imageAlts.sprouts },
+    ],
+  },
+  {
+    class: "md:col-span-5 md:col-start-1",
+    images: [
+      { src: shadowImage, alt: philosophy.imageAlts.shadow },
+      { src: mothImage, alt: philosophy.imageAlts.moth },
+    ],
+  },
+];
+---
+
+<section
+  id="filosofia"
+  class="bg-plum py-18 text-cream md:min-h-282.5 md:pt-30 md:pb-36"
+>
+  <Grid class="items-start gap-y-10 md:gap-y-18">
+    <SectionLabel
+      text={philosophy.label}
+      class="col-span-full -mb-6 border-cream/30 text-cream/82"
+    />
+    <h2
+      data-reveal
+      class:list={[
+        "col-span-full m-0 text-42 leading-104 text-cream md:col-span-7 md:col-start-1 md:text-120 md:leading-092",
+        displayText,
+        reveal,
+      ]}
+    >
+      <RichText text={philosophy.title} />
+    </h2>
+    {pairs.map((pair) => (
+      <div
+        class:list={[
+          "col-span-full grid grid-cols-2 gap-x-3 md:gap-x-6",
+          pair.class,
+        ]}
+      >
+        {pair.images.map((image, index) => (
+          <figure
+            data-reveal
+            class:list={[
+              "m-0 flex flex-col gap-2.5",
+              reveal,
+              index === 1 && "delay-200",
+            ]}
+          >
+            <Image
+              src={image.src}
+              alt={image.alt}
+              widths={[320, 640]}
+              sizes="(max-width: 760px) 50vw, 20vw"
+              class="block aspect-4/5 w-full object-cover"
+            />
+          </figure>
+        ))}
+      </div>
+    ))}
+    <div
+      data-reveal
+      class:list={[
+        "col-span-full flex flex-col gap-7 self-end md:col-span-5 md:col-start-8",
+        reveal,
+      ]}
+    >
+      <p class="m-0 text-17 leading-150 md:text-20">{philosophy.body}</p>
+      <UnderlineLink href={links.manifesto} rule="current">
+        {philosophy.cta}
+      </UnderlineLink>
+    </div>
+  </Grid>
+</section>

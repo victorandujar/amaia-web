@@ -1,0 +1,46 @@
+---
+import Grid from "../../components/layout/Grid.astro";
+import SiteFooter from "../../components/layout/SiteFooter.astro";
+import Button from "../../components/ui/Button.astro";
+import type { Locale } from "../../i18n/locales";
+import { links } from "../../lib/links";
+import { reveal } from "../../lib/motion";
+import { displayText } from "../../lib/typography";
+import { homeContent } from "./home.content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { closing } = homeContent[locale];
+---
+
+<section
+  id="cierre"
+  class="flex flex-col justify-between gap-30 bg-ivory py-18 text-ink md:min-h-160 md:pt-32 md:pb-12"
+>
+  <Grid class="items-start gap-y-8">
+    <div
+      data-reveal
+      class:list={[
+        "col-span-full flex flex-col gap-8 md:col-span-9 md:col-start-1",
+        reveal,
+      ]}
+    >
+      <h2
+        class:list={[
+          "m-0 text-42 leading-104 md:text-88 md:leading-098",
+          displayText,
+        ]}
+      >
+        {closing.title}
+      </h2>
+      <p class="m-0 max-w-140 text-17 leading-160 md:text-18">{closing.body}</p>
+      <Button href={links.firstListening} variant="ink">
+        {closing.cta}
+      </Button>
+    </div>
+  </Grid>
+  <SiteFooter locale={locale} tone="dark" />
+</section>

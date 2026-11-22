@@ -8,6 +8,9 @@
   /* Desktop layout starts where the design's mobile rules (max-width: 760px) end. */
   --breakpoint-md: 761px;
 
+  /* Page content never grows past the design's 1440px canvas; backgrounds still bleed. */
+  --container-page: 1440px;
+
   --font-sans:
     "Schibsted Grotesk Variable", "Helvetica Neue", Arial, sans-serif;
   --font-display: "Newsreader Variable", Georgia, serif;

@@ -5,12 +5,15 @@ interface Props {
   id?: string;
   /** Inner pages align every grid item to the start on mobile. */
   startOnMobile?: boolean;
+  /** Hero grids span the whole viewport; every other grid stops at the page width. */
+  fullBleed?: boolean;
 }
 
 const {
   as: Tag = "div",
   class: className,
   startOnMobile = false,
+  fullBleed = false,
   ...attrs
 } = Astro.props;
 ---
@@ -19,6 +22,7 @@ const {
 <Tag
   class:list={[
     "grid w-full grid-cols-4 gap-x-3 px-5 md:grid-cols-12 md:gap-x-6 md:px-12",
+    !fullBleed && "mx-auto max-w-page",
     startOnMobile && "max-md:*:justify-self-start",
     className,
   ]}

@@ -1,0 +1,47 @@
+---
+import Grid from "../../components/layout/Grid.astro";
+import RichText from "../../components/ui/RichText.astro";
+import SectionLabel from "../../components/ui/SectionLabel.astro";
+import type { Locale } from "../../i18n/locales";
+import { reveal } from "../../lib/motion";
+import { displayText } from "../../lib/typography";
+import { aboutContent } from "./about.content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { selfPortrait } = aboutContent[locale];
+---
+
+<section id="autorretrato" class="bg-stone py-18 text-ink md:pt-26 md:pb-28">
+  <Grid startOnMobile class="items-start gap-y-10">
+    <SectionLabel class="col-span-full border-ink/25 text-ink-soft" />
+    <p
+      data-reveal
+      class:list={[
+        "col-span-full m-0 text-40 leading-104 md:col-span-7 md:col-start-1 md:text-60 md:leading-102",
+        displayText,
+        reveal,
+      ]}
+    >
+      <RichText text={selfPortrait.statement} />
+    </p>
+    <div
+      data-reveal
+      class:list={[
+        "col-span-full flex flex-col gap-4.5 pt-2 md:col-span-5 md:col-start-8",
+        reveal,
+        "delay-200",
+      ]}
+    >
+      <p class="m-0 font-display text-17 leading-130 font-light tracking-snug md:text-24">
+        {selfPortrait.intro}
+      </p>
+      {selfPortrait.paragraphs.map((paragraph) => (
+        <p class="m-0 text-17 leading-160 md:text-18">{paragraph}</p>
+      ))}
+    </div>
+  </Grid>
+</section>

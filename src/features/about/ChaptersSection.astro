@@ -26,11 +26,10 @@ const highlight =
   "m-0 max-w-130 font-display text-17 leading-130 font-light tracking-snug text-ink md:text-24";
 const paragraph = "m-0 max-w-130 text-17 leading-162 text-ink-soft";
 const figure = "col-span-full m-0 flex w-full flex-col gap-2.5 md:w-[62%]";
-const caption = ["text-ink-soft", labelText];
 ---
 
 {/* Two chapters crossing each other: text and picture swap sides around a thin vertical line. */}
-<section id="dos-lenguajes" class="bg-stone py-18 text-ink md:pt-34 md:pb-0">
+<section id="dos-lenguajes" class="bg-stone py-18 text-ink md:pt-34 md:pb-32">
   <Grid startOnMobile class="items-start gap-y-62">
     <span
       aria-hidden="true"
@@ -72,7 +71,6 @@ const caption = ["text-ink-soft", labelText];
         sizes="(max-width: 760px) 100vw, 26vw"
         class="block aspect-4/5 w-full object-cover"
       />
-      <figcaption class:list={caption}>{craft.imageCaption}</figcaption>
     </figure>
     <div
       id="vida-simbolica"
@@ -112,10 +110,6 @@ const caption = ["text-ink-soft", labelText];
         sizes="(max-width: 760px) 100vw, 26vw"
         class="block aspect-4/5 w-full object-cover"
       />
-      <figcaption class:list={caption}>{symbolicLife.imageCaption}</figcaption>
     </figure>
   </Grid>
-  <div aria-hidden="true" class="flex justify-center">
-    <span class="block h-14 w-px bg-ink/20 md:h-30"></span>
-  </div>
 </section>

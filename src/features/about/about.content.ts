@@ -8,7 +8,6 @@ interface Chapter {
   highlight: string;
   link: string;
   imageAlt: string;
-  imageCaption: string;
 }
 
 interface AboutContent {
@@ -78,7 +77,6 @@ export const aboutContent: Localized<AboutContent> = {
       link: "Explorar mi trayectoria profesional ↗",
       imageAlt:
         "María Alejandra en una mesa al aire libre, con su cuaderno abierto, dos piedras apiladas, libros y una tableta",
-      imageCaption: "proceso",
     },
     symbolicLife: {
       label: "la vida simbólica",
@@ -93,7 +91,6 @@ export const aboutContent: Localized<AboutContent> = {
       link: "Una conversación sobre mi camino como mujer-canal — The Field ↗",
       imageAlt:
         "María Alejandra descalza sobre una roca en el bosque, tocando la piedra con la mano",
-      imageCaption: "práctica",
     },
     multiplicity: {
       label: "una investigación viva",
@@ -157,7 +154,6 @@ export const aboutContent: Localized<AboutContent> = {
       link: "Explore my professional path ↗",
       imageAlt:
         "María Alejandra at an outdoor table, with her notebook open, two stacked stones, books and a tablet",
-      imageCaption: "process",
     },
     symbolicLife: {
       label: "symbolic life",
@@ -172,7 +168,6 @@ export const aboutContent: Localized<AboutContent> = {
       link: "A conversation about my path as a channel — The Field ↗",
       imageAlt:
         "María Alejandra barefoot on a rock in the forest, touching the stone with her hand",
-      imageCaption: "practice",
     },
     multiplicity: {
       label: "a living inquiry",

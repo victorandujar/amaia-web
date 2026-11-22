@@ -48,7 +48,8 @@ export const studioContent: Localized<StudioContent> = {
       title: "Amaïa Studio",
       startWord: "Amaïa",
       endWord: "Studio",
-      imageAlt: "Hojas burdeos secas en un jarrón de piedra sobre un pedestal",
+      imageAlt:
+        "Un portátil abierto sobre una roca, en un jardín frondoso lleno de plantas y piedras",
     },
     welcome: {
       title: "Donde lo abstracto adquiere cuerpo.",
@@ -131,7 +132,8 @@ export const studioContent: Localized<StudioContent> = {
       title: "Amaïa Studio",
       startWord: "Amaïa",
       endWord: "Studio",
-      imageAlt: "Dry burgundy leaves in a stone vase on a pedestal",
+      imageAlt:
+        "An open laptop on a rock, in a lush garden full of plants and stones",
     },
     welcome: {
       title: "Where the abstract takes on a body.",

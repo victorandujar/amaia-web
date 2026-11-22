@@ -1,0 +1,74 @@
+---
+import Button from "../../components/ui/Button.astro";
+import RichText from "../../components/ui/RichText.astro";
+import SectionLabel from "../../components/ui/SectionLabel.astro";
+import { reveal } from "../../lib/motion";
+import { displayText, labelText } from "../../lib/typography";
+import type { HouseContent } from "./home.content";
+
+interface Props {
+  id: string;
+  house: HouseContent;
+  href: string;
+  class?: string;
+}
+
+const { id, house, href, class: className } = Astro.props;
+const bodyText = "m-0 max-w-145 text-17 leading-160 text-cream";
+const inlineLabel = ["text-lilac", labelText];
+---
+
+<article
+  id={id}
+  class:list={[
+    "flex flex-col gap-5 px-5 py-16 md:min-h-265 md:px-12 md:pt-22 md:pb-24",
+    className,
+  ]}
+>
+  <p
+    aria-hidden="true"
+    class:list={["m-0 mb-8 text-40 leading-100 md:hidden", displayText]}
+  >
+    <RichText text={house.mobileIntro} />
+  </p>
+  <SectionLabel class="mb-3 border-cream/32 text-cream/88" />
+  <h2
+    data-reveal
+    class:list={[
+      "m-0 mb-5 text-42 leading-104 md:text-64 md:leading-100",
+      displayText,
+      reveal,
+    ]}
+  >
+    {house.title}
+  </h2>
+  <p
+    data-reveal
+    class:list={[
+      "m-0 -mt-1 mb-4 max-w-140 font-display text-24 leading-130 font-light tracking-snug text-cream",
+      reveal,
+    ]}
+  >
+    {house.lead}
+  </p>
+  <div data-reveal class:list={["mb-3", reveal]}>
+    <slot name="media" />
+  </div>
+  <h3 class="m-0 font-display text-30 leading-112 font-light tracking-snug md:text-32">
+    {house.subtitle}
+  </h3>
+  <p class={bodyText}>{house.body}</p>
+  <p class={bodyText}>
+    <span class:list={inlineLabel}>{house.forYouLabel}</span>
+    {house.forYou}
+  </p>
+  <p class={bodyText}>
+    <span class:list={inlineLabel}>{house.journeyLabel}</span>
+    <span class="font-display text-20 font-light">
+      {house.journeyName}
+    </span> · <span class="italic">{house.journeyTagline}</span>
+  </p>
+  <Button href={href} variant="cream" class="mt-auto">
+    {house.cta}
+  </Button>
+</article>

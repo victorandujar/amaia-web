@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import studioImage from "../../assets/images/home-studio-leaves.jpg";
+import ImagePlaceholder from "../../components/ui/ImagePlaceholder.astro";
+import type { Locale } from "../../i18n/locales";
+import { pagePath } from "../../i18n/routes";
+import HouseCard from "./HouseCard.astro";
+import { homeContent } from "./home.content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { studio, rituals } = homeContent[locale];
+---
+
+<section id="casas" class="grid grid-cols-1 text-cream md:grid-cols-2">
+  <HouseCard
+    id="studio"
+    house={studio}
+    href={pagePath("studio", locale)}
+    class="bg-eucalyptus"
+  >
+    <figure slot="media" class="m-0 flex flex-col gap-2.5">
+      <Image
+        src={studioImage}
+        alt={studio.imageAlt}
+        widths={[480, 736]}
+        sizes="(max-width: 760px) 100vw, 50vw"
+        class="block aspect-16/10 w-full object-cover"
+      />
+    </figure>
+  </HouseCard>
+  <HouseCard
+    id="rituals"
+    house={rituals}
+    href={pagePath("rituals", locale)}
+    class="bg-aubergine"
+  >
+    <ImagePlaceholder
+      slot="media"
+      label={rituals.placeholder.label}
+      tag={rituals.placeholder.tag}
+      description={rituals.placeholder.description}
+      class="aspect-16/10 bg-plum-veil p-6"
+      tagClass="text-cream/90"
+      descriptionClass="max-w-105 text-16 leading-145"
+    />
+  </HouseCard>
+</section>

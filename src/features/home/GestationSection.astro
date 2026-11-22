@@ -1,0 +1,87 @@
+---
+import Grid from "../../components/layout/Grid.astro";
+import SectionLabel from "../../components/ui/SectionLabel.astro";
+import type { Locale } from "../../i18n/locales";
+import { reveal } from "../../lib/motion";
+import { displayText } from "../../lib/typography";
+import { homeContent } from "./home.content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { gestation } = homeContent[locale];
+const voiceDelays = ["delay-0", "delay-150", "delay-300"];
+---
+
+<section
+  id="gestacion"
+  class="bg-forest py-18 text-cream md:min-h-265 md:pt-30 md:pb-24"
+>
+  <Grid class="items-start gap-y-12">
+    <SectionLabel
+      text={gestation.label}
+      class="col-span-full border-cream/30 text-cream/82"
+    />
+    <h2
+      data-reveal
+      class:list={[
+        "col-span-full m-0 text-42 leading-104 md:col-span-10 md:col-start-1 md:text-84 md:leading-098",
+        displayText,
+        reveal,
+      ]}
+    >
+      {gestation.title}
+    </h2>
+    <div
+      data-reveal
+      class:list={[
+        "col-span-full flex flex-col gap-4 md:col-span-6 md:col-start-7",
+        reveal,
+      ]}
+    >
+      {gestation.paragraphs.map((paragraph) => (
+        <p class="m-0 text-17 leading-160 text-cream/90 md:text-18">
+          {paragraph}
+        </p>
+      ))}
+    </div>
+    <p
+      data-reveal
+      class:list={[
+        "col-span-full mt-18 -mb-4 font-display text-26 leading-130 font-light tracking-snug text-cream md:col-span-6 md:col-start-1",
+        reveal,
+      ]}
+    >
+      {gestation.voicesIntro}
+    </p>
+    <div class="col-span-full grid grid-cols-1 gap-x-6 gap-y-9 md:grid-cols-3 md:gap-y-0">
+      {gestation.voices.map((voice, index) => (
+        <p
+          data-reveal
+          class:list={[
+            "m-0 border-t border-cream/30 pt-5 font-display text-25 leading-130 font-light",
+            reveal,
+            voiceDelays[index],
+          ]}
+        >
+          {/* Newsreader only ships light and regular in the design, so this label renders at regular weight. */}
+          <span class="mb-3.5 block text-11 font-normal tracking-label text-lilac uppercase">
+            {voice.tag}
+          </span>
+          {voice.quote}
+        </p>
+      ))}
+    </div>
+    <p
+      data-reveal
+      class:list={[
+        "col-span-full m-0 font-display text-22 leading-140 text-cream/90 md:col-span-6 md:col-start-1",
+        reveal,
+      ]}
+    >
+      {gestation.closing}
+    </p>
+  </Grid>
+</section>

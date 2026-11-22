@@ -1,11 +1,11 @@
 ---
+import { Image } from "astro:assets";
+import gazeImage from "../../assets/images/rituals-gaze-cacao.jpg";
 import Grid from "../../components/layout/Grid.astro";
-import ImagePlaceholder from "../../components/ui/ImagePlaceholder.astro";
 import RichText from "../../components/ui/RichText.astro";
 import SectionLabel from "../../components/ui/SectionLabel.astro";
 import type { Locale } from "../../i18n/locales";
 import { reveal } from "../../lib/motion";
-import { grain } from "../../lib/texture";
 import { displayText } from "../../lib/typography";
 import { ritualsContent } from "./rituals.content";
 
@@ -34,14 +34,12 @@ const { gaze } = ritualsContent[locale];
       data-reveal
       class:list={["col-span-full m-0 md:col-span-4 md:col-start-1", reveal]}
     >
-      <ImagePlaceholder
-        as="span"
-        label={gaze.placeholder.label}
-        tag={gaze.placeholder.tag}
-        description={gaze.placeholder.description}
-        class:list={["aspect-4/5 bg-mist-mauve p-6", grain]}
-        tagClass="text-ink-soft"
-        descriptionClass="text-15 leading-145 text-ink"
+      <Image
+        src={gazeImage}
+        alt={gaze.imageAlt}
+        widths={[480, 979]}
+        sizes="(max-width: 760px) 100vw, 33vw"
+        class="block aspect-4/5 w-full object-cover saturate-85"
       />
     </figure>
     <div

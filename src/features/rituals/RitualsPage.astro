@@ -1,11 +1,11 @@
 ---
+import { Image } from "astro:assets";
+import heroImage from "../../assets/images/rituals-hero-tea.jpg";
 import InnerClosing from "../../components/sections/InnerClosing.astro";
 import InnerHero from "../../components/sections/InnerHero.astro";
-import ImagePlaceholder from "../../components/ui/ImagePlaceholder.astro";
 import type { Locale } from "../../i18n/locales";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { links } from "../../lib/links";
-import { grain } from "../../lib/texture";
 import GazeSection from "./GazeSection.astro";
 import IntroSection from "./IntroSection.astro";
 import LanguagesSection from "./LanguagesSection.astro";
@@ -36,19 +36,14 @@ const { meta, hero, closing } = ritualsContent[locale];
       endWord={hero.endWord}
       class="bg-aubergine text-cream md:gap-8"
       wordsClass="text-64 md:text-144"
-      endWordClass="md:mb-7"
     >
-      <ImagePlaceholder
-        as="span"
-        label={hero.placeholder.label}
-        tag={hero.placeholder.tag}
-        description={hero.placeholder.description}
-        class:list={[
-          "aspect-3/4 bg-plum-veil p-6 font-sans tracking-normal",
-          grain,
-        ]}
-        tagClass="text-cream/90"
-        descriptionClass="text-16 leading-145 text-cream"
+      <Image
+        src={heroImage}
+        alt={hero.imageAlt}
+        widths={[432, 560]}
+        sizes="(max-width: 760px) 78vw, 432px"
+        loading="eager"
+        class="block aspect-3/4 w-full object-cover"
       />
     </InnerHero>
     <IntroSection locale={locale} />

@@ -1,4 +1,4 @@
-import type { Localized } from "../../i18n/locales";
+import type { Locale, Localized } from "../../i18n/locales";
 import type { RichText } from "../../lib/rich-text";
 
 interface Placeholder {
@@ -28,7 +28,7 @@ interface HomeContent {
     titleItalic: string;
     titleRest: string;
     lead: string;
-    meta: readonly string[];
+    meta: readonly { text: string; lang?: Locale }[];
   };
   gestation: {
     label: string;
@@ -40,7 +40,7 @@ interface HomeContent {
   };
   bridge: { create: RichText; exist: RichText };
   studio: HouseContent & { imageAlt: string };
-  rituals: HouseContent & { placeholder: Placeholder };
+  rituals: HouseContent & { imageAlt: string };
   philosophy: {
     label: string;
     title: RichText;
@@ -82,9 +82,9 @@ export const homeContent: Localized<HomeContent> = {
       titleRest: "a la materia.",
       lead: "Amaïa acompaña la gestación creativa: el tiempo en que algo que intuyes se convierte en algo que existe.",
       meta: [
-        "investigación · estrategia · práctica creativa",
-        "desde 2025",
-        "desliza ↓",
+        { text: "Applied Mysticism · Creative Listening", lang: "en" },
+        { text: "Est. 2025", lang: "en" },
+        { text: "desliza ↓" },
       ],
     },
     gestation: {
@@ -122,7 +122,8 @@ export const homeContent: Localized<HomeContent> = {
       mobileIntro: ["El misterio de ", { em: "crear." }],
       title: "Amaïa Studio",
       lead: "Un espacio de investigación y gestación creativa donde exploro los misterios de la creación y las formas que puede adquirir lo sensible.",
-      imageAlt: "Hojas burdeos secas sobre tallos finos",
+      imageAlt:
+        "Un portátil abierto sobre una roca, entre piedras y hojas grandes en un jardín frondoso",
       subtitle: "Para darle forma a tu obra.",
       body: "Te acompaño a investigar qué hace única a tu obra y a convertirlo en decisiones concretas: cómo se nombra, cómo se ve, cómo habla. Puede ser una marca, un libro, un proyecto, un servicio o una práctica.",
       forYouLabel: "para ti si ",
@@ -137,12 +138,8 @@ export const homeContent: Localized<HomeContent> = {
       mobileIntro: ["El misterio de ", { em: "existir." }],
       title: "Amaïa Rituals",
       lead: "Un espacio de exploración sensible, energética y espiritual donde investigo el misterio de estar vivos y nuestra relación con lo sagrado.",
-      placeholder: {
-        label: "Espacio para imagen: lo sensible y lo sagrado",
-        tag: "[imagen · lo sagrado]",
-        description:
-          "Cuerpo, manos, telas, luz o agua: algo que se perciba más de lo que se vea. Pendiente de elegir.",
-      },
+      imageAlt:
+        "Un servicio de té sobre un tronco y una roca, en un rincón en sombra de un jardín frondoso",
       subtitle: "En ceremonia con la vida.",
       body: "A través del ritual, la voz, el cuerpo y el encuentro, exploro distintas maneras de cultivar nuestra sensibilidad, descubrirnos y profundizar nuestra relación con la vida.",
       forYouLabel: "para ti si ",
@@ -222,9 +219,9 @@ export const homeContent: Localized<HomeContent> = {
       titleRest: "to matter.",
       lead: "Amaïa accompanies creative gestation: the time in which something you sense becomes something that exists.",
       meta: [
-        "research · strategy · creative practice",
-        "since 2025",
-        "scroll ↓",
+        { text: "Applied Mysticism · Creative Listening" },
+        { text: "Est. 2025" },
+        { text: "scroll ↓" },
       ],
     },
     gestation: {
@@ -263,7 +260,8 @@ export const homeContent: Localized<HomeContent> = {
       mobileIntro: ["The mystery of ", { em: "creating." }],
       title: "Amaïa Studio",
       lead: "A space for research and creative gestation where I explore the mysteries of creation and the forms the sensible can take.",
-      imageAlt: "Dry burgundy leaves on thin stems",
+      imageAlt:
+        "An open laptop on a rock, among stones and large leaves in a lush garden",
       subtitle: "To give shape to your work.",
       body: "I accompany you to research what makes your work unique and to turn it into concrete decisions: how it is named, how it looks, how it speaks. It can be a brand, a book, a project, a service or a practice.",
       forYouLabel: "for you if ",
@@ -278,12 +276,8 @@ export const homeContent: Localized<HomeContent> = {
       mobileIntro: ["The mystery of ", { em: "existing." }],
       title: "Amaïa Rituals",
       lead: "A space for sensitive, energetic and spiritual exploration where I research the mystery of being alive and our relationship with the sacred.",
-      placeholder: {
-        label: "Image space: the sensible and the sacred",
-        tag: "[image · the sacred]",
-        description:
-          "Body, hands, fabrics, light or water: something felt more than seen. Still to be chosen.",
-      },
+      imageAlt:
+        "A tea set on a log and a rock, in a shaded corner of a lush garden",
       subtitle: "In ceremony with life.",
       body: "Through ritual, voice, body and encounter, I explore different ways of cultivating our sensitivity, discovering ourselves and deepening our relationship with life.",
       forYouLabel: "for you if ",

@@ -20,7 +20,7 @@ const phraseClass = [
 
 {/* On mobile each phrase moves into its house card instead. */}
 <section aria-hidden="true" class="hidden bg-forest text-cream md:block">
-  <div class="grid grid-cols-2">
+  <div class="mx-auto grid max-w-page grid-cols-2">
     <p data-reveal class:list={phraseClass}>
       <RichText text={bridge.create} />
     </p>

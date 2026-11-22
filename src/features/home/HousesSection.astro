@@ -1,7 +1,6 @@
 ---
-import { Image } from "astro:assets";
-import studioImage from "../../assets/images/home-studio-leaves.jpg";
-import ImagePlaceholder from "../../components/ui/ImagePlaceholder.astro";
+import ritualsImage from "../../assets/images/home-rituals-tea.jpg";
+import studioImage from "../../assets/images/home-studio-laptop.jpg";
 import type { Locale } from "../../i18n/locales";
 import { pagePath } from "../../i18n/routes";
 import HouseCard from "./HouseCard.astro";
@@ -15,37 +14,25 @@ const { locale } = Astro.props;
 const { studio, rituals } = homeContent[locale];
 ---
 
-<section id="casas" class="grid grid-cols-1 text-cream md:grid-cols-2">
-  <HouseCard
-    id="studio"
-    house={studio}
-    href={pagePath("studio", locale)}
-    class="bg-eucalyptus"
-  >
-    <figure slot="media" class="m-0 flex flex-col gap-2.5">
-      <Image
-        src={studioImage}
-        alt={studio.imageAlt}
-        widths={[480, 736]}
-        sizes="(max-width: 760px) 100vw, 50vw"
-        class="block aspect-16/10 w-full object-cover"
-      />
-    </figure>
-  </HouseCard>
-  <HouseCard
-    id="rituals"
-    house={rituals}
-    href={pagePath("rituals", locale)}
-    class="bg-aubergine"
-  >
-    <ImagePlaceholder
-      slot="media"
-      label={rituals.placeholder.label}
-      tag={rituals.placeholder.tag}
-      description={rituals.placeholder.description}
-      class="aspect-16/10 bg-plum-veil p-6"
-      tagClass="text-cream/90"
-      descriptionClass="max-w-105 text-16 leading-145"
+{/* Each half's color bleeds to its edge of the screen while the cards stay within the page width. */}
+<section
+  id="casas"
+  class="text-cream md:bg-linear-to-r md:from-eucalyptus md:from-50% md:to-aubergine md:to-50%"
+>
+  <div class="mx-auto grid max-w-page grid-cols-1 md:grid-cols-2">
+    <HouseCard
+      id="studio"
+      house={studio}
+      image={studioImage}
+      href={pagePath("studio", locale)}
+      class="bg-eucalyptus"
     />
-  </HouseCard>
+    <HouseCard
+      id="rituals"
+      house={rituals}
+      image={ritualsImage}
+      href={pagePath("rituals", locale)}
+      class="bg-aubergine"
+    />
+  </div>
 </section>

@@ -1,12 +1,6 @@
 import type { Localized } from "../../i18n/locales";
 import type { RichText } from "../../lib/rich-text";
 
-interface Placeholder {
-  label: string;
-  tag: string;
-  description: string;
-}
-
 interface Offering {
   label: string;
   title: string;
@@ -23,12 +17,12 @@ interface RitualsContent {
     title: string;
     startWord: string;
     endWord: string;
-    placeholder: Placeholder;
+    imageAlt: string;
   };
   intro: { title: string; lead: string };
   gaze: {
     title: string;
-    placeholder: Placeholder;
+    imageAlt: string;
     paragraphs: readonly string[];
     motto: RichText;
   };
@@ -57,12 +51,8 @@ export const ritualsContent: Localized<RitualsContent> = {
       title: "Amaïa Rituals",
       startWord: "Amaïa",
       endWord: "Rituals",
-      placeholder: {
-        label: "Espacio para imagen: lo intangible",
-        tag: "[imagen · lo intangible]",
-        description:
-          "Manos, un velo o luz atravesando una tela: algo que se perciba más de lo que se vea.",
-      },
+      imageAlt:
+        "Un servicio de té sobre un tronco y una roca, en un rincón en sombra de un jardín frondoso",
     },
     intro: {
       title: "En ceremonia con la vida.",
@@ -70,12 +60,8 @@ export const ritualsContent: Localized<RitualsContent> = {
     },
     gaze: {
       title: "Una profunda reverencia por la vida.",
-      placeholder: {
-        label: "Espacio para imagen: el gesto",
-        tag: "[imagen · el gesto]",
-        description:
-          "Unas manos, una ofrenda o la luz sobre la piel: un detalle cotidiano tratado con atención.",
-      },
+      imageAlt:
+        "Una mano sostiene una taza de cacao junto a una vela encendida y flores secas, sobre un mantel de encaje",
       paragraphs: [
         "Creo en la dimensión sagrada de nuestra existencia. Me interesa reconocer lo divino en la naturaleza, en el cuerpo, en la belleza de un gesto y en el encuentro con otros.",
         "El ritual es mi manera de dedicar atención a ese misterio y de crear belleza en el tiempo.",
@@ -154,12 +140,8 @@ export const ritualsContent: Localized<RitualsContent> = {
       title: "Amaïa Rituals",
       startWord: "Amaïa",
       endWord: "Rituals",
-      placeholder: {
-        label: "Image space: the intangible",
-        tag: "[image · the intangible]",
-        description:
-          "Hands, a veil or light passing through fabric: something felt more than seen.",
-      },
+      imageAlt:
+        "A tea set on a log and a rock, in a shaded corner of a lush garden",
     },
     intro: {
       title: "In ceremony with life.",
@@ -167,12 +149,8 @@ export const ritualsContent: Localized<RitualsContent> = {
     },
     gaze: {
       title: "A deep reverence for life.",
-      placeholder: {
-        label: "Image space: the gesture",
-        tag: "[image · the gesture]",
-        description:
-          "Hands, an offering or light on skin: an everyday detail treated with attention.",
-      },
+      imageAlt:
+        "A hand holds a cup of cacao next to a lit candle and dried flowers, on a lace tablecloth",
       paragraphs: [
         "I believe in the sacred dimension of our existence. I am drawn to recognising the divine in nature, in the body, in the beauty of a gesture and in the encounter with others.",
         "Ritual is my way of devoting attention to that mystery and of creating beauty in time.",

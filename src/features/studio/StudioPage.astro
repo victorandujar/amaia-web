@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import heroImage from "../../assets/images/studio-hero-vase.jpg";
+import heroImage from "../../assets/images/studio-hero-laptop.jpg";
 import InnerClosing from "../../components/sections/InnerClosing.astro";
 import InnerHero from "../../components/sections/InnerHero.astro";
 import type { Locale } from "../../i18n/locales";
@@ -36,7 +36,6 @@ const { meta, hero, closing } = studioContent[locale];
       endWord={hero.endWord}
       class="bg-eucalyptus text-cream md:gap-8"
       wordsClass="text-64 md:text-144"
-      endWordClass="md:mb-7"
     >
       <span class:list={["block overflow-hidden", grain]}>
         <Image

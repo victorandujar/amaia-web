@@ -40,9 +40,9 @@ const navItems: { key: PageKey | "manifesto"; label: string; href: string }[] =
     { key: "about", label: t.nav.about, href: pagePath("about", locale) },
   ];
 
-const toneClasses: Record<Tone, { current: string; cta: string }> = {
-  light: { current: "border-b border-lilac", cta: "border-cream/80" },
-  dark: { current: "border-b border-plum", cta: "border-ink/70" },
+const toneClasses: Record<Tone, { dot: string; cta: string }> = {
+  light: { dot: "bg-lilac", cta: "border-cream/80" },
+  dark: { dot: "bg-plum", cta: "border-ink/70" },
 };
 ---
 
@@ -69,15 +69,36 @@ const toneClasses: Record<Tone, { current: string; cta: string }> = {
     aria-label={t.primaryNavLabel}
     class="flex w-full flex-wrap items-center gap-x-4 gap-y-0 text-15 md:w-auto md:gap-7"
   >
-    {navItems.map((item) => (
-      <a
-        href={item.href}
-        aria-current={item.key === page ? "page" : undefined}
-        class:list={["py-3", item.key === page && toneClasses[tone].current]}
-      >
-        {item.label}
-      </a>
-    ))}
+    {navItems.map((item) =>
+      item.key === page ? (
+        // The current page sits between two small dots, as in the design.
+        <a
+          href={item.href}
+          aria-current="page"
+          class="inline-flex items-center gap-2.5 py-3 font-medium"
+        >
+          <span
+            aria-hidden="true"
+            class:list={[
+              "size-1.25 flex-none rounded-full",
+              toneClasses[tone].dot,
+            ]}
+          />
+          {item.label}
+          <span
+            aria-hidden="true"
+            class:list={[
+              "size-1.25 flex-none rounded-full",
+              toneClasses[tone].dot,
+            ]}
+          />
+        </a>
+      ) : (
+        <a href={item.href} class="py-3">
+          {item.label}
+        </a>
+      ),
+    )}
     <a href={pagePath(page, otherLocale)} hreflang={otherLocale} class="py-3">
       <span lang={otherLocale}>{t.languageSwitch.text}</span>
       <span class="sr-only"> · {t.languageSwitch.label}</span>

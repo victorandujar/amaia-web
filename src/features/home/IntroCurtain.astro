@@ -7,17 +7,11 @@ const logo = await getImage({ src: wordmarkLight, format: "png" });
 
 {/*
   The design's opening: a plum curtain of pixels with the wordmark that dissolves cell by cell.
-  It only covers the hero, plays once per session and is skipped with reduced motion.
+  It only covers the hero, plays on every load and is skipped with reduced motion, as in the design.
 */}
 <script is:inline>
-  try {
-    const motionAllowed = !window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches;
-    if (motionAllowed && !sessionStorage.getItem("amaia-intro-seen")) {
-      document.documentElement.classList.add("intro");
-    }
-  } catch {
-    // Storage can be blocked (private mode): the page simply opens without the intro.
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.documentElement.classList.add("intro");
   }
 </script>
 <div

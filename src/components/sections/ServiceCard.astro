@@ -1,0 +1,92 @@
+---
+import Button from "../ui/Button.astro";
+import { reveal } from "../../lib/motion";
+import { displayText, labelText } from "../../lib/typography";
+
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  tagline: string;
+  taglineItalic?: boolean;
+  paragraphs: readonly string[];
+  forYouLabel: string;
+  forYou: string;
+  cta: { label: string; href: string; variant: "cream" | "outline-cream" };
+  /** Background, grid placement and minimum height. */
+  class: string;
+  labelClass?: string;
+  copyWidthClass: string;
+}
+
+const {
+  id,
+  label,
+  title,
+  tagline,
+  taglineItalic = false,
+  paragraphs,
+  forYouLabel,
+  forYou,
+  cta,
+  class: className,
+  labelClass,
+  copyWidthClass,
+} = Astro.props;
+const copyClass = ["text-15 leading-160 text-cream/88", copyWidthClass];
+---
+
+<article
+  id={id}
+  data-reveal
+  class:list={[
+    "col-span-full flex flex-col p-10 text-cream",
+    className,
+    reveal,
+  ]}
+>
+  <p
+    class:list={[
+      "m-0 flex items-baseline justify-between gap-6 border-t border-cream/32 pt-3.5 text-cream/86",
+      labelText,
+      labelClass,
+    ]}
+  >
+    <span>{label}</span>
+  </p>
+  <h3
+    class:list={[
+      "m-0 mt-6 text-40 leading-104 md:text-64 md:leading-098",
+      displayText,
+    ]}
+  >
+    {title}
+  </h3>
+  <p
+    class:list={[
+      "m-0 mt-4 font-display text-28 leading-115 font-light",
+      taglineItalic && "italic",
+    ]}
+  >
+    {tagline}
+  </p>
+  {paragraphs.map((paragraph, index) => (
+    <p
+      class:list={[
+        "m-0",
+        copyClass,
+        index === 0 ? "mt-10" : "mt-3",
+        index === paragraphs.length - 1 && "mb-5",
+      ]}
+    >
+      {paragraph}
+    </p>
+  ))}
+  <p class:list={["m-0 mb-12", copyClass]}>
+    <span class:list={["text-lilac", labelText]}>{forYouLabel}</span>
+    {forYou}
+  </p>
+  <Button href={cta.href} variant={cta.variant} class="mt-auto">
+    {cta.label}
+  </Button>
+</article>

@@ -1,0 +1,35 @@
+---
+import { reveal } from "../../lib/motion";
+import { labelText } from "../../lib/typography";
+import Grid from "../layout/Grid.astro";
+
+interface Props {
+  quote: string;
+  author: string;
+  /** Quote color. */
+  quoteClass: string;
+}
+
+const { quote, author, quoteClass } = Astro.props;
+---
+
+<Grid as="figure" startOnMobile class="m-0 gap-y-5 pb-32">
+  <blockquote
+    data-reveal
+    class:list={[
+      "col-span-full m-0 font-display text-28 leading-116 font-light tracking-snug text-balance md:col-span-8 md:col-start-3 md:text-40",
+      quoteClass,
+      reveal,
+    ]}
+  >
+    {quote}
+  </blockquote>
+  <figcaption
+    class:list={[
+      "col-span-full text-ink-soft md:col-span-8 md:col-start-3",
+      labelText,
+    ]}
+  >
+    {author}
+  </figcaption>
+</Grid>

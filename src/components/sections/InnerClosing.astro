@@ -1,0 +1,59 @@
+---
+import type { Locale } from "../../i18n/locales";
+import type { PageKey } from "../../i18n/routes";
+import { reveal } from "../../lib/motion";
+import type { RichText as RichTextValue } from "../../lib/rich-text";
+import { displayText } from "../../lib/typography";
+import Grid from "../layout/Grid.astro";
+import SiteFooter from "../layout/SiteFooter.astro";
+import Button from "../ui/Button.astro";
+import RichText from "../ui/RichText.astro";
+import SectionLabel from "../ui/SectionLabel.astro";
+
+interface Props {
+  locale: Locale;
+  title: RichTextValue;
+  body: string;
+  cta: { label: string; href: string };
+  next: { page: PageKey; title: string };
+  /** Section background. */
+  class: string;
+}
+
+const { locale, title, body, cta, next, class: className } = Astro.props;
+---
+
+<section
+  id="cierre"
+  class:list={[
+    "flex flex-1 flex-col justify-between gap-24 py-18 text-cream md:min-h-170 md:pt-26 md:pb-10",
+    className,
+  ]}
+>
+  <Grid startOnMobile class="items-start gap-y-10">
+    <SectionLabel class="col-span-full border-cream/32 text-cream/86" />
+    <h2
+      data-reveal
+      class:list={[
+        "col-span-full m-0 text-40 leading-104 md:col-span-9 md:col-start-1 md:text-88 md:leading-098",
+        displayText,
+        reveal,
+      ]}
+    >
+      <RichText text={title} />
+    </h2>
+    <div
+      data-reveal
+      class:list={[
+        "col-span-full flex flex-col gap-4 md:col-span-6 md:col-start-1",
+        reveal,
+      ]}
+    >
+      <p class="m-0 text-17 leading-160 md:text-18">{body}</p>
+      <Button href={cta.href} variant="lilac" class="mt-4">
+        {cta.label}
+      </Button>
+    </div>
+  </Grid>
+  <SiteFooter locale={locale} tone="light" next={next} mobileAlign="start" />
+</section>

@@ -1,0 +1,31 @@
+---
+type Rule = "current" | "ink" | "plum";
+
+interface Props {
+  href: string;
+  rule: Rule;
+  external?: boolean;
+  class?: string;
+}
+
+const ruleClasses: Record<Rule, string> = {
+  current: "border-current",
+  ink: "border-ink",
+  plum: "border-plum",
+};
+
+const { href, rule, external = false, class: className } = Astro.props;
+---
+
+<a
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
+  class:list={[
+    "inline-flex min-h-11 items-center self-start border-b text-15 font-medium",
+    ruleClasses[rule],
+    className,
+  ]}
+>
+  <slot />
+</a>

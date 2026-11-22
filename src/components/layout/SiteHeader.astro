@@ -78,14 +78,9 @@ const toneClasses: Record<Tone, { current: string; cta: string }> = {
         {item.label}
       </a>
     ))}
-    <a
-      href={pagePath(page, otherLocale)}
-      hreflang={otherLocale}
-      lang={otherLocale}
-      aria-label={t.languageSwitch.label}
-      class="py-3"
-    >
-      {t.languageSwitch.text}
+    <a href={pagePath(page, otherLocale)} hreflang={otherLocale} class="py-3">
+      <span lang={otherLocale}>{t.languageSwitch.text}</span>
+      <span class="sr-only"> · {t.languageSwitch.label}</span>
     </a>
     <a
       href={links.contact}

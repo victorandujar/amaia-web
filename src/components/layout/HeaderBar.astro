@@ -1,0 +1,97 @@
+---
+import { Image } from "astro:assets";
+import monogramDark from "../../assets/brand/monogram-dark.svg";
+import monogramLight from "../../assets/brand/monogram-light.svg";
+import wordmarkDark from "../../assets/brand/wordmark-dark.png";
+import wordmarkLight from "../../assets/brand/wordmark-light.png";
+import type { Locale } from "../../i18n/locales";
+import { manifestoPath, pagePath, type PageKey } from "../../i18n/routes";
+import { ui } from "../../i18n/ui";
+import { links } from "../../lib/links";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+  /** The home page shows the wordmark; inner pages show the monogram. */
+  logo: "wordmark" | "monogram";
+}
+
+const { locale, page, logo } = Astro.props;
+const t = ui[locale];
+const otherLocale: Locale = locale === "es" ? "en" : "es";
+
+const logos =
+  logo === "wordmark"
+    ? {
+        light: wordmarkLight,
+        dark: wordmarkDark,
+        class: "aspect-412/132 h-7 w-auto",
+      }
+    : { light: monogramLight, dark: monogramDark, class: "h-8.5 w-auto" };
+
+const navItems: { key: PageKey | "manifesto"; label: string; href: string }[] =
+  [
+    { key: "studio", label: t.nav.studio, href: pagePath("studio", locale) },
+    { key: "rituals", label: t.nav.rituals, href: pagePath("rituals", locale) },
+    { key: "manifesto", label: t.nav.manifesto, href: manifestoPath(locale) },
+    { key: "about", label: t.nav.about, href: pagePath("about", locale) },
+  ];
+
+// Colors follow the `data-tone` of the enclosing SiteHeader: light over dark backgrounds, dark over light ones.
+const dot =
+  "size-1.25 flex-none rounded-full bg-lilac group-data-[tone=dark]:bg-plum";
+---
+
+<a
+  href={pagePath("home", locale)}
+  aria-label={t.homeLinkLabel}
+  class="inline-flex min-h-11 items-center"
+>
+  <Image
+    src={logos.light}
+    alt={t.logoAlt}
+    class:list={[logos.class, "group-data-[tone=dark]:hidden"]}
+    densities={[1, 2]}
+    loading="eager"
+  />
+  <Image
+    src={logos.dark}
+    alt={t.logoAlt}
+    class:list={[logos.class, "hidden group-data-[tone=dark]:block"]}
+    densities={[1, 2]}
+    loading="eager"
+  />
+</a>
+<nav
+  aria-label={t.primaryNavLabel}
+  class="flex w-full flex-wrap items-center gap-x-4 gap-y-0 text-15 md:w-auto md:gap-7"
+>
+  {navItems.map((item) =>
+    item.key === page ? (
+      // The current page sits between two small dots, as in the design.
+      <a
+        href={item.href}
+        aria-current="page"
+        class="inline-flex items-center gap-2.5 py-3 font-medium"
+      >
+        <span aria-hidden="true" class={dot} />
+        {item.label}
+        <span aria-hidden="true" class={dot} />
+      </a>
+    ) : (
+      <a href={item.href} class="py-3">
+        {item.label}
+      </a>
+    ),
+  )}
+  <a href={pagePath(page, otherLocale)} hreflang={otherLocale} class="py-3">
+    <span lang={otherLocale}>{t.languageSwitch.text}</span>
+    <span class="sr-only"> · {t.languageSwitch.label}</span>
+  </a>
+  <a
+    href={links.contact}
+    class="box-content inline-flex min-h-11 items-center border border-cream/80 px-5 text-14 font-medium group-data-[tone=dark]:border-ink/70"
+  >
+    {t.writeToMe}
+  </a>
+</nav>

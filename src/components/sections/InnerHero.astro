@@ -12,6 +12,7 @@ interface Props {
   page: PageKey;
   /** Visually hidden page title: the big words are decorative. */
   title: string;
+  /** Header text color, following the hero background. */
   tone: "light" | "dark";
   startWord: string;
   endWord: string;
@@ -50,7 +51,8 @@ const {
     page={page}
     tone={tone}
     logo="monogram"
-    class="pt-2"
+    class="pt-6"
+    reserveSpace
   />
   <Grid
     fullBleed

@@ -1,0 +1,121 @@
+---
+import { Image } from "astro:assets";
+import practiceImage from "../../assets/images/about-practice.jpg";
+import processImage from "../../assets/images/about-process.jpg";
+import Grid from "../../components/layout/Grid.astro";
+import UnderlineLink from "../../components/ui/UnderlineLink.astro";
+import type { Locale } from "../../i18n/locales";
+import { links } from "../../lib/links";
+import { reveal } from "../../lib/motion";
+import { displayText, labelText } from "../../lib/typography";
+import { aboutContent } from "./about.content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { craft, symbolicLife } = aboutContent[locale];
+
+const chapterLabel = ["m-0 mb-5 text-ink-soft", labelText];
+const chapterTitle = [
+  "m-0 mb-7 max-w-150 text-40 leading-104 md:text-56 md:leading-100",
+  displayText,
+];
+const highlight =
+  "m-0 max-w-130 font-display text-17 leading-130 font-light tracking-snug text-ink md:text-24";
+const paragraph = "m-0 max-w-130 text-17 leading-162 text-ink-soft";
+const figure = "col-span-full m-0 flex w-full flex-col gap-2.5 md:w-[62%]";
+const caption = ["text-ink-soft", labelText];
+---
+
+{/* Two chapters crossing each other: text and picture swap sides around a thin vertical line. */}
+<section id="dos-lenguajes" class="bg-stone py-18 text-ink md:pt-34 md:pb-0">
+  <Grid startOnMobile class="items-start gap-y-62">
+    <span
+      aria-hidden="true"
+      class="-ml-3 hidden w-px justify-self-start bg-ink/20 md:col-start-7 md:row-span-2 md:row-start-1 md:block"
+    ></span>
+    <div
+      id="oficio"
+      data-reveal
+      class:list={[
+        "col-span-full flex flex-col gap-5.5 border-t border-ink/20 pt-3.5 pb-10 md:col-span-6 md:col-start-1 md:row-start-1 md:pr-8 md:pb-0",
+        reveal,
+      ]}
+    >
+      <p class:list={chapterLabel}>{craft.label}</p>
+      <h2 class:list={chapterTitle}>{craft.title}</h2>
+      <p class={highlight}>{craft.highlight}</p>
+      {craft.paragraphs.map((text) => (
+        <p class={paragraph}>{text}</p>
+      ))}
+      <div class="mt-1">
+        <UnderlineLink href={links.professionalPath} rule="plum" external>
+          {craft.link}
+        </UnderlineLink>
+      </div>
+    </div>
+    <figure
+      data-reveal
+      class:list={[
+        figure,
+        "self-end md:col-span-6 md:col-start-7 md:row-start-1 md:ml-8",
+        reveal,
+        "delay-200",
+      ]}
+    >
+      <Image
+        src={processImage}
+        alt={craft.imageAlt}
+        widths={[480, 800, 1160]}
+        sizes="(max-width: 760px) 100vw, 26vw"
+        class="block aspect-4/5 w-full object-cover"
+      />
+      <figcaption class:list={caption}>{craft.imageCaption}</figcaption>
+    </figure>
+    <div
+      id="vida-simbolica"
+      data-reveal
+      class:list={[
+        "col-span-full flex flex-col gap-5.5 pt-12 md:col-span-6 md:col-start-7 md:row-start-2 md:pt-0 md:pl-8",
+        reveal,
+      ]}
+    >
+      <p class:list={[chapterLabel, "border-t border-ink/20 pt-3.5"]}>
+        {symbolicLife.label}
+      </p>
+      <h2 class:list={chapterTitle}>{symbolicLife.title}</h2>
+      {symbolicLife.paragraphs.map((text) => (
+        <p class={paragraph}>{text}</p>
+      ))}
+      <p class={highlight}>{symbolicLife.highlight}</p>
+      <div class="mt-1">
+        <UnderlineLink href={links.theFieldConversation} rule="plum" external>
+          {symbolicLife.link}
+        </UnderlineLink>
+      </div>
+    </div>
+    <figure
+      data-reveal
+      class:list={[
+        figure,
+        "self-start md:col-span-6 md:col-start-1 md:row-start-2 md:mr-8 md:justify-self-end",
+        reveal,
+        "delay-200",
+      ]}
+    >
+      <Image
+        src={practiceImage}
+        alt={symbolicLife.imageAlt}
+        widths={[480, 800, 1160]}
+        sizes="(max-width: 760px) 100vw, 26vw"
+        class="block aspect-4/5 w-full object-cover"
+      />
+      <figcaption class:list={caption}>{symbolicLife.imageCaption}</figcaption>
+    </figure>
+  </Grid>
+  <div aria-hidden="true" class="flex justify-center">
+    <span class="block h-14 w-px bg-ink/20 md:h-30"></span>
+  </div>
+</section>

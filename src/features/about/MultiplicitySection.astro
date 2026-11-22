@@ -1,0 +1,74 @@
+---
+import Grid from "../../components/layout/Grid.astro";
+import RichText from "../../components/ui/RichText.astro";
+import SectionLabel from "../../components/ui/SectionLabel.astro";
+import UnderlineLink from "../../components/ui/UnderlineLink.astro";
+import type { Locale } from "../../i18n/locales";
+import { pagePath } from "../../i18n/routes";
+import { reveal } from "../../lib/motion";
+import { displayText } from "../../lib/typography";
+import { aboutContent } from "./about.content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { multiplicity, encounter } = aboutContent[locale];
+---
+
+<section id="multiplicidad" class="bg-lavender py-18 text-ink md:pt-0 md:pb-42">
+  <Grid startOnMobile class="items-start gap-y-10">
+    <SectionLabel
+      text={multiplicity.label}
+      class="col-span-full border-ink/20 text-ink-soft"
+    />
+    <h2
+      data-reveal
+      class:list={[
+        "col-span-full m-0 text-40 leading-104 md:col-span-6 md:col-start-1 md:text-64 md:leading-100",
+        displayText,
+        reveal,
+      ]}
+    >
+      {multiplicity.title}
+    </h2>
+    <div
+      data-reveal
+      class:list={[
+        "col-span-full flex flex-col gap-4.5 pt-2 md:col-span-5 md:col-start-8",
+        reveal,
+        "delay-200",
+      ]}
+    >
+      {multiplicity.paragraphs.map((paragraph) => (
+        <p class="m-0 max-w-130 text-17 leading-162 text-ink-soft">
+          {paragraph}
+        </p>
+      ))}
+      <div class="mt-2 flex flex-wrap gap-x-8 gap-y-2">
+        <UnderlineLink href={pagePath("studio", locale)} rule="plum">
+          {multiplicity.studioLink}
+        </UnderlineLink>
+        <UnderlineLink href={pagePath("rituals", locale)} rule="plum">
+          {multiplicity.ritualsLink}
+        </UnderlineLink>
+      </div>
+    </div>
+  </Grid>
+</section>
+<section id="encuentro" class="bg-lavender text-ink">
+  <div class="flex flex-col items-center gap-7 px-12 pb-42 text-center">
+    <span aria-hidden="true" class="block h-14 w-px bg-ink/20 md:h-40"></span>
+    <p
+      data-reveal
+      class:list={[
+        "m-0 max-w-270 text-40 leading-104 text-plum md:text-76",
+        displayText,
+        reveal,
+      ]}
+    >
+      <RichText text={encounter} />
+    </p>
+  </div>
+</section>

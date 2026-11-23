@@ -1,16 +1,15 @@
 /**
- * Destinations the design leaves open. They keep the design's placeholder anchors
- * until the real addresses (email, booking tool, profiles, legal pages) are decided.
+ * Every destination outside the page structure. Those still open in the design (email,
+ * booking tool, legal pages) keep its placeholder anchors until the real addresses are decided.
  * Update them here only: every page reads from this module.
  */
 export const links = {
   contact: "#contacto",
   firstListening: "#primera-escucha",
-  instagram: "#instagram",
-  substack: "#substack",
+  instagram: "https://www.instagram.com/amaiarituals/",
+  substack: "https://mariamayangel.substack.com/",
   legal: "#legal",
   privacy: "#privacidad",
-  fieldNotes: "#field-notes",
   manifesto: "#manifiesto",
   professionalPath: "https://www.mariamayangel.com/en/about",
   theFieldConversation: "https://substack.com/@mariamayangel/p-208656939",

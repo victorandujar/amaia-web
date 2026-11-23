@@ -1,12 +1,6 @@
 import type { Locale, Localized } from "../../i18n/locales";
 import type { RichText } from "../../lib/rich-text";
 
-interface Placeholder {
-  label: string;
-  tag: string;
-  description: string;
-}
-
 export interface HouseContent {
   mobileIntro: RichText;
   title: string;
@@ -59,12 +53,6 @@ interface HomeContent {
     body: string;
     cta: string;
     portraitAlt: string;
-  };
-  fieldNotes: {
-    title: string;
-    intro: string;
-    notes: readonly (Placeholder & { number: string; title: string })[];
-    cta: string;
   };
   closing: { title: string; body: string; cta: string };
 }
@@ -168,37 +156,6 @@ export const homeContent: Localized<HomeContent> = {
       body: "Nueve años investigando cultura y personas para marcas, en agencias y consultoras. Hoy pongo ese oficio al servicio de quien crea.",
       cta: "Sobre mí →",
       portraitAlt: "Retrato de la fundadora de Amaïa con un ramo de flores",
-    },
-    fieldNotes: {
-      title: "Field Notes",
-      intro:
-        "Notas de campo de mi práctica: lo que voy aprendiendo mientras creo.",
-      notes: [
-        {
-          label: "Espacio para imagen: manos trabajando un material",
-          tag: "[imagen · manos]",
-          description: "Manos trabajando barro, papel o hilo, muy de cerca.",
-          number: "field notes · [nº]",
-          title: "Las manos siempre saben",
-        },
-        {
-          label: "Espacio para imagen: archivo, capas de papel",
-          tag: "[imagen · archivo]",
-          description:
-            "Capas de papel, cuadernos o fotos viejas superpuestas: la huella de algo vivido.",
-          number: "field notes · [nº]",
-          title: "La intuición tiene memoria",
-        },
-        {
-          label: "Espacio para imagen: textura con luz rasante",
-          tag: "[imagen · textura]",
-          description:
-            "Una superficie muy de cerca con luz rasante: tela, cerámica o papel.",
-          number: "field notes · 006",
-          title: "La sensibilidad se educa",
-        },
-      ],
-      cta: "Leer más → [Instagram o Substack]",
     },
     closing: {
       title: "Hablemos de lo que está tomando forma.",
@@ -306,36 +263,6 @@ export const homeContent: Localized<HomeContent> = {
       body: "Nine years researching culture and people for brands, in agencies and consultancies. Today I put that craft at the service of those who create.",
       cta: "About me →",
       portraitAlt: "Portrait of Amaïa’s founder holding a bouquet of flowers",
-    },
-    fieldNotes: {
-      title: "Field Notes",
-      intro: "Field notes from my practice: what I learn while I create.",
-      notes: [
-        {
-          label: "Image space: hands working a material",
-          tag: "[image · hands]",
-          description: "Hands working clay, paper or thread, very close up.",
-          number: "field notes · [no.]",
-          title: "Hands always know",
-        },
-        {
-          label: "Image space: archive, layers of paper",
-          tag: "[image · archive]",
-          description:
-            "Layers of paper, notebooks or old photos on top of each other: the trace of something lived.",
-          number: "field notes · [no.]",
-          title: "Intuition has memory",
-        },
-        {
-          label: "Image space: texture in raking light",
-          tag: "[image · texture]",
-          description:
-            "A surface very close up in raking light: fabric, ceramics or paper.",
-          number: "field notes · 006",
-          title: "Sensitivity can be educated",
-        },
-      ],
-      cta: "Read more → [Instagram or Substack]",
     },
     closing: {
       title: "Let’s talk about what is taking shape.",

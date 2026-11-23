@@ -3,7 +3,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { Locale } from "../../i18n/locales";
 import BridgeSection from "./BridgeSection.astro";
 import ClosingSection from "./ClosingSection.astro";
-import FieldNotesSection from "./FieldNotesSection.astro";
 import GestationSection from "./GestationSection.astro";
 import GuideSection from "./GuideSection.astro";
 import HomeHero from "./HomeHero.astro";
@@ -32,7 +31,6 @@ const { meta } = homeContent[locale];
     <HousesSection locale={locale} />
     <PhilosophySection locale={locale} />
     <GuideSection locale={locale} />
-    <FieldNotesSection locale={locale} />
     <ClosingSection locale={locale} />
   </main>
 </BaseLayout>

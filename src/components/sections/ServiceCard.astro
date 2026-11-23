@@ -12,7 +12,12 @@ interface Props {
   paragraphs: readonly string[];
   forYouLabel: string;
   forYou: string;
-  cta: { label: string; href: string; variant: "cream" | "outline-cream" };
+  cta: {
+    label: string;
+    href: string;
+    variant: "cream" | "outline-cream";
+    external?: boolean;
+  };
   /** Background, grid placement and minimum height. */
   class: string;
   labelClass?: string;
@@ -86,7 +91,12 @@ const copyClass = ["text-15 leading-160 text-cream/88", copyWidthClass];
     <span class:list={["text-lilac", labelText]}>{forYouLabel}</span>
     {forYou}
   </p>
-  <Button href={cta.href} variant={cta.variant} class="mt-auto">
+  <Button
+    href={cta.href}
+    variant={cta.variant}
+    external={cta.external ?? false}
+    class="mt-auto"
+  >
     {cta.label}
   </Button>
 </article>

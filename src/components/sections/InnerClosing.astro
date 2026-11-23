@@ -14,6 +14,7 @@ interface Props {
   locale: Locale;
   title: RichTextValue;
   body: string;
+  /** Closing call to action: a WhatsApp link, so it opens in a new tab. */
   cta: { label: string; href: string };
   next: { page: PageKey; title: string };
   /** Section background. */
@@ -50,7 +51,7 @@ const { locale, title, body, cta, next, class: className } = Astro.props;
       ]}
     >
       <p class="m-0 text-17 leading-160 md:text-18">{body}</p>
-      <Button href={cta.href} variant="lilac" class="mt-4">
+      <Button href={cta.href} variant="lilac" external class="mt-4">
         {cta.label}
       </Button>
     </div>

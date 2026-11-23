@@ -7,7 +7,7 @@ import wordmarkLight from "../../assets/brand/wordmark-light.png";
 import type { Locale } from "../../i18n/locales";
 import { manifestoPath, pagePath, type PageKey } from "../../i18n/routes";
 import { ui } from "../../i18n/ui";
-import { links } from "../../lib/links";
+import { whatsappLink } from "../../lib/links";
 
 interface Props {
   locale: Locale;
@@ -89,7 +89,9 @@ const dot =
     <span class="sr-only"> · {t.languageSwitch.label}</span>
   </a>
   <a
-    href={links.contact}
+    href={whatsappLink(locale, "contact")}
+    target="_blank"
+    rel="noopener noreferrer"
     class="box-content inline-flex min-h-11 items-center border border-cream/80 px-5 text-14 font-medium group-data-[tone=dark]:border-ink/70"
   >
     {t.writeToMe}

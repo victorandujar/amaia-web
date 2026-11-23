@@ -4,6 +4,8 @@ type Variant = "cream" | "ink" | "lilac" | "outline-cream";
 interface Props {
   href: string;
   variant: Variant;
+  /** Opens in a new tab, as every WhatsApp link does. */
+  external?: boolean;
   class?: string;
 }
 
@@ -14,11 +16,13 @@ const variantClasses: Record<Variant, string> = {
   "outline-cream": "border border-cream/80 text-cream",
 };
 
-const { href, variant, class: className } = Astro.props;
+const { href, variant, external = false, class: className } = Astro.props;
 ---
 
 <a
   href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
   class:list={[
     "box-content inline-flex min-h-12 items-center self-start px-6 text-15 font-medium",
     variantClasses[variant],

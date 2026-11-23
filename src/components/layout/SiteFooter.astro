@@ -45,8 +45,8 @@ const itemAlign =
 
 const footerLinks = [
   { label: t.footerLinks.email, href: links.contact },
-  { label: t.footerLinks.instagram, href: links.instagram },
-  { label: t.footerLinks.substack, href: links.substack },
+  { label: t.footerLinks.instagram, href: links.instagram, external: true },
+  { label: t.footerLinks.substack, href: links.substack, external: true },
   { label: t.footerLinks.legal, href: links.legal },
   { label: t.footerLinks.privacy, href: links.privacy },
 ];
@@ -97,7 +97,12 @@ const footerLinks = [
     ]}
   >
     {footerLinks.map((link) => (
-      <a href={link.href} class="py-3">
+      <a
+        href={link.href}
+        target={"external" in link ? "_blank" : undefined}
+        rel={"external" in link ? "noopener noreferrer" : undefined}
+        class="py-3"
+      >
         {link.label}
       </a>
     ))}

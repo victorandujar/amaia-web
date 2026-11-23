@@ -22,7 +22,6 @@ The manifesto has no page yet: the navigation points to the philosophy section o
 
 ## Pending content
 
-- Destinations for contact, first listening, Instagram, Substack, field notes, legal notice and privacy:
+- Destinations for contact, first listening, legal notice and privacy:
   `src/lib/links.ts` still holds the design's placeholder anchors.
-- Photos for the image spaces the design keeps as placeholders (Rituals and Field Notes).
 - Final domain, to add canonical URLs, `hreflang` alternates and a sitemap.

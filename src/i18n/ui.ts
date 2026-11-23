@@ -11,8 +11,10 @@ interface UiStrings {
   scrollHint: string;
   next: string;
   tagline: string;
+  /** Messages prefilled in WhatsApp by each contact button. */
+  whatsapp: { contact: string; firstListening: string };
   footerLinks: {
-    email: string;
+    whatsapp: string;
     instagram: string;
     substack: string;
     legal: string;
@@ -37,8 +39,12 @@ export const ui: Localized<UiStrings> = {
     scrollHint: "desliza ↓",
     next: "siguiente",
     tagline: "La vida con rituales es más sabrosa.",
+    whatsapp: {
+      contact: "Hola Male, te escribo desde la web de Amaïa.",
+      firstListening: "Hola Male, me gustaría agendar una primera escucha.",
+    },
     footerLinks: {
-      email: "email",
+      whatsapp: "whatsapp",
       instagram: "instagram",
       substack: "substack",
       legal: "aviso legal",
@@ -61,8 +67,12 @@ export const ui: Localized<UiStrings> = {
     scrollHint: "scroll ↓",
     next: "next",
     tagline: "Life tastes better with rituals.",
+    whatsapp: {
+      contact: "Hi Male, I’m writing to you from the Amaïa website.",
+      firstListening: "Hi Male, I’d like to book a first listening.",
+    },
     footerLinks: {
-      email: "email",
+      whatsapp: "whatsapp",
       instagram: "instagram",
       substack: "substack",
       legal: "legal notice",

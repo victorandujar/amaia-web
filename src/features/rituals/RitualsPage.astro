@@ -5,7 +5,7 @@ import InnerClosing from "../../components/sections/InnerClosing.astro";
 import InnerHero from "../../components/sections/InnerHero.astro";
 import type { Locale } from "../../i18n/locales";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { links } from "../../lib/links";
+import { whatsappLink } from "../../lib/links";
 import GazeSection from "./GazeSection.astro";
 import IntroSection from "./IntroSection.astro";
 import LanguagesSection from "./LanguagesSection.astro";
@@ -54,7 +54,7 @@ const { meta, hero, closing } = ritualsContent[locale];
       locale={locale}
       title={closing.title}
       body={closing.body}
-      cta={{ label: closing.cta, href: links.contact }}
+      cta={{ label: closing.cta, href: whatsappLink(locale, "contact") }}
       next={{ page: "about", title: closing.next }}
       class="bg-aubergine"
     />

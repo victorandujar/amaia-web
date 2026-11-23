@@ -4,7 +4,7 @@ import ServiceCard from "../../components/sections/ServiceCard.astro";
 import Testimonial from "../../components/sections/Testimonial.astro";
 import SectionLabel from "../../components/ui/SectionLabel.astro";
 import type { Locale } from "../../i18n/locales";
-import { links } from "../../lib/links";
+import { whatsappLink } from "../../lib/links";
 import { reveal } from "../../lib/motion";
 import { displayText } from "../../lib/typography";
 import { studioContent } from "./studio.content";
@@ -64,8 +64,9 @@ const { mysteryOfForm, creativeCorrespondences } = services;
       {...creativeCorrespondences}
       cta={{
         label: creativeCorrespondences.cta,
-        href: links.contact,
+        href: whatsappLink(locale, "contact"),
         variant: "cream",
+        external: true,
       }}
       class="min-h-140 bg-plum delay-150 md:col-span-6 md:col-start-7"
       copyWidthClass="max-w-115"

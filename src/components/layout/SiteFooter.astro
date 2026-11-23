@@ -6,7 +6,7 @@ import wordmarkLight from "../../assets/brand/wordmark-light.png";
 import type { Locale } from "../../i18n/locales";
 import { pagePath, type PageKey } from "../../i18n/routes";
 import { ui } from "../../i18n/ui";
-import { links } from "../../lib/links";
+import { links, whatsappLink } from "../../lib/links";
 import { displayText, labelText } from "../../lib/typography";
 import Grid from "./Grid.astro";
 
@@ -44,7 +44,11 @@ const itemAlign =
   mobileAlign === "start" ? "justify-self-start md:justify-self-auto" : "";
 
 const footerLinks = [
-  { label: t.footerLinks.email, href: links.contact },
+  {
+    label: t.footerLinks.whatsapp,
+    href: whatsappLink(locale, "contact"),
+    external: true,
+  },
   { label: t.footerLinks.instagram, href: links.instagram, external: true },
   { label: t.footerLinks.substack, href: links.substack, external: true },
   { label: t.footerLinks.legal, href: links.legal },

@@ -22,6 +22,5 @@ The manifesto has no page yet: the navigation points to the philosophy section o
 
 ## Pending content
 
-- Destinations for contact, first listening, legal notice and privacy:
-  `src/lib/links.ts` still holds the design's placeholder anchors.
+- Destinations for the legal notice and privacy pages: `src/lib/links.ts` still holds the design's placeholder anchors.
 - Final domain, to add canonical URLs, `hreflang` alternates and a sitemap.

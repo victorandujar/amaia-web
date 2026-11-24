@@ -19,6 +19,16 @@ export function primaryNavItems(locale: Locale): NavItem[] {
   ];
 }
 
+/** Order and names of the languages in the mobile menu's selector. */
+export const languageOptions: readonly {
+  locale: Locale;
+  code: string;
+  name: string;
+}[] = [
+  { locale: "en", code: "EN", name: "English" },
+  { locale: "es", code: "ES", name: "Español" },
+];
+
 export function otherLocale(locale: Locale): Locale {
   return locale === "es" ? "en" : "es";
 }

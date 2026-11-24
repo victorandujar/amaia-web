@@ -4,7 +4,7 @@ import { pagePath, type PageKey } from "../../i18n/routes";
 import { ui } from "../../i18n/ui";
 import { whatsappLink } from "../../lib/links";
 import { labelText } from "../../lib/typography";
-import { otherLocale, primaryNavItems } from "./navigation";
+import { languageOptions, primaryNavItems } from "./navigation";
 
 interface Props {
   id: string;
@@ -14,7 +14,6 @@ interface Props {
 
 const { id, locale, page } = Astro.props;
 const t = ui[locale];
-const alternate = otherLocale(locale);
 const items = primaryNavItems(locale);
 
 /*
@@ -42,15 +41,16 @@ const dot =
   class="pointer-events-none fixed inset-0 z-30 md:hidden group-data-open:pointer-events-auto"
 ></div>
 {/*
-  Mobile only. A glass sidebar like the header: no fill, a blur over the page. It slides in
-  from the right under the header, so the burger turned into an X stays reachable.
+  Mobile only. A glass sidebar like the header: a blur over the page, with a faint veil in the
+  header's tone so its text stays readable over any section. It slides in from the right under
+  the header, so the burger turned into an X stays reachable.
 */}
 <nav
   {id}
   data-menu
   aria-label={t.primaryNavLabel}
   inert
-  class="fixed inset-y-0 right-0 z-30 flex w-full max-w-80 translate-x-full flex-col gap-10 overflow-y-auto px-5 pt-28 pb-10 opacity-0 backdrop-blur-xl transition-[translate,opacity] duration-500 ease-materia motion-reduce:transition-none md:hidden group-data-open:translate-x-0 group-data-open:opacity-100"
+  class="fixed inset-y-0 right-0 z-30 flex w-full max-w-80 translate-x-full flex-col gap-10 overflow-y-auto px-5 pt-28 pb-10 opacity-0 bg-shade/55 backdrop-blur-xl group-data-[tone=dark]:bg-ivory/70 transition-[translate,opacity] duration-500 ease-materia motion-reduce:transition-none md:hidden group-data-open:translate-x-0 group-data-open:opacity-100"
 >
   <ul class="m-0 flex list-none flex-col border-b border-current/25 p-0">
     {items.map((item, index) => (
@@ -75,13 +75,38 @@ const dot =
       entryDelays[items.length],
     ]}
   >
-    <a
-      href={pagePath(page, alternate)}
-      hreflang={alternate}
-      class:list={["inline-flex min-h-11 items-center", labelText]}
+    {/* Both languages side by side, "EN — ES": the current one underlined, the other one a link. */}
+    <div
+      role="group"
+      aria-label={t.languageSwitch.group}
+      class:list={["flex items-center gap-3", labelText]}
     >
-      <span lang={alternate}>{t.languageSwitch.label}</span>
-    </a>
+      {languageOptions.map((option, index) => (
+        <>
+          {index > 0 && <span aria-hidden="true">—</span>}
+          {option.locale === locale ? (
+            <span
+              lang={option.locale}
+              aria-current="true"
+              class="inline-flex min-h-11 items-center"
+            >
+              <span class="border-b border-current">{option.code}</span>
+              <span class="sr-only"> · {option.name}</span>
+            </span>
+          ) : (
+            <a
+              href={pagePath(page, option.locale)}
+              hreflang={option.locale}
+              lang={option.locale}
+              class="inline-flex min-h-11 items-center"
+            >
+              {option.code}
+              <span class="sr-only"> · {option.name}</span>
+            </a>
+          )}
+        </>
+      ))}
+    </div>
     <a
       href={whatsappLink(locale, "contact")}
       target="_blank"

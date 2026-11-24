@@ -35,9 +35,9 @@ interface ManifestoContent {
 export const manifestoContent: Localized<ManifestoContent> = {
   es: {
     meta: {
-      title: "Amaïa · Manifiesto",
+      title: "Manifiesto · La vida es un acto creativo · Amaïa",
       description:
-        "Somos un misterio a descubrir. Y la creación es una de las maneras de entrar en ese misterio.",
+        "Somos un misterio a descubrir. Y la creación es una de las maneras de entrar en ese misterio. La vida es un acto creativo.",
     },
     title: "Manifiesto",
     opening: {
@@ -107,9 +107,9 @@ export const manifestoContent: Localized<ManifestoContent> = {
   },
   en: {
     meta: {
-      title: "Amaïa · Manifesto",
+      title: "Manifesto · Life is a creative act · Amaïa",
       description:
-        "We are a mystery to be discovered. And creation is one of the ways into that mystery.",
+        "We are a mystery to be discovered. And creation is one of the ways into that mystery. Life is a creative act.",
     },
     title: "Manifesto",
     opening: {

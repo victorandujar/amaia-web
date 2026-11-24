@@ -10,6 +10,15 @@ const pagePaths: Record<PageKey, Record<Locale, string>> = {
   about: { es: "/sobre-mi/", en: "/en/about/" },
 };
 
+/** Every page, in the site's reading order. */
+export const pageKeys: readonly PageKey[] = [
+  "home",
+  "studio",
+  "rituals",
+  "manifesto",
+  "about",
+];
+
 export function pagePath(page: PageKey, locale: Locale): string {
   return pagePaths[page][locale];
 }

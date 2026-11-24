@@ -28,6 +28,8 @@ const { meta, hero, closing } = aboutContent[locale];
   title={meta.title}
   description={meta.description}
   locale={locale}
+  page="about"
+  image={{ src: portraitImage, alt: hero.portraitAlt }}
   class="bg-stone"
 >
   <main class="flex min-h-screen w-full flex-col bg-stone text-ink">
@@ -49,6 +51,7 @@ const { meta, hero, closing } = aboutContent[locale];
         widths={[432, 864, 1200]}
         sizes="(max-width: 760px) 78vw, 432px"
         loading="eager"
+        fetchpriority="high"
         class="block aspect-3/4 w-full object-cover"
       />
       <figcaption

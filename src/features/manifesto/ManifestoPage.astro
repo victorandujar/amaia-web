@@ -13,7 +13,7 @@ import RichText from "../../components/ui/RichText.astro";
 import type { Locale } from "../../i18n/locales";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { whatsappLink } from "../../lib/links";
-import { reveal } from "../../lib/motion";
+import { materia, reveal } from "../../lib/motion";
 import { displayText, labelText } from "../../lib/typography";
 import { manifestoContent } from "./manifesto.content";
 
@@ -35,6 +35,8 @@ const section = "py-13 md:pt-50 md:pb-0";
   title={meta.title}
   description={meta.description}
   locale={locale}
+  page="manifesto"
+  image={{ src: handImage, alt: opening.imageAlt }}
   class="bg-stone"
 >
   <main class="flex min-h-screen w-full flex-col bg-stone text-ink">
@@ -54,7 +56,8 @@ const section = "py-13 md:pt-50 md:pb-0";
           data-reveal
           class:list={[
             "col-span-full m-0 w-full max-w-[78%] md:col-span-5 md:col-start-2 md:max-w-126 md:justify-self-start",
-            reveal,
+            materia,
+            "delay-300",
           ]}
         >
           <Image

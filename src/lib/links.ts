@@ -15,7 +15,9 @@ export const links = {
   theFieldConversation: "https://substack.com/@mariamayangel/p-208656939",
 } as const;
 
-const whatsappNumber = "34644197363";
+/** WhatsApp number, also published as the contact point in structured data. */
+export const contactPhone = "+34644197363";
+const whatsappNumber = contactPhone.slice(1);
 
 /** Contact goes through WhatsApp, with a message prefilled in the page's language. */
 export function whatsappLink(

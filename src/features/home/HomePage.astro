@@ -1,4 +1,5 @@
 ---
+import heroImage from "../../assets/images/home-hero-tulips.jpg";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import type { Locale } from "../../i18n/locales";
 import BridgeSection from "./BridgeSection.astro";
@@ -15,13 +16,15 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const { meta } = homeContent[locale];
+const { meta, hero } = homeContent[locale];
 ---
 
 <BaseLayout
   title={meta.title}
   description={meta.description}
   locale={locale}
+  page="home"
+  image={{ src: heroImage, alt: hero.imageAlt }}
   class="bg-ivory"
 >
   <main class="w-full bg-ivory text-ink">

@@ -11,16 +11,23 @@ Engineering standards, commands and the Git workflow are in [`AGENTS.md`](./AGEN
 
 ## Pages
 
-| Page     | Spanish      | English        |
-| -------- | ------------ | -------------- |
-| Home     | `/`          | `/en/`         |
-| Studio   | `/studio/`   | `/en/studio/`  |
-| Rituals  | `/rituals/`  | `/en/rituals/` |
-| Sobre mí | `/sobre-mi/` | `/en/about/`   |
+| Page       | Spanish        | English          |
+| ---------- | -------------- | ---------------- |
+| Home       | `/`            | `/en/`           |
+| Studio     | `/studio/`     | `/en/studio/`    |
+| Rituals    | `/rituals/`    | `/en/rituals/`   |
+| Manifiesto | `/manifiesto/` | `/en/manifesto/` |
+| Sobre mí   | `/sobre-mi/`   | `/en/about/`     |
 
-The manifesto has no page yet: the navigation points to the philosophy section of the home page.
+## SEO
+
+- Canonical origin: `site` in `astro.config.mjs` (`https://www.amaiastudio.com`).
+- Every page: canonical URL, `hreflang` (es, en, x-default), Open Graph and Twitter cards with a 1200×630 image,
+  and a JSON-LD graph (organization, founder, website, page, breadcrumb; services on Studio and Rituals),
+  built by `src/components/seo/SeoHead.astro` and `src/lib/structured-data.ts`.
+- `/sitemap.xml` (with language alternates) and `/robots.txt` are generated at build time.
+- Titles and descriptions live in each page's `<page>.content.ts` (`meta`) and are composed from the existing copy.
 
 ## Pending content
 
 - Destinations for the legal notice and privacy pages: `src/lib/links.ts` still holds the design's placeholder anchors.
-- Final domain, to add canonical URLs, `hreflang` alternates and a sitemap.

@@ -60,9 +60,9 @@ interface HomeContent {
 export const homeContent: Localized<HomeContent> = {
   es: {
     meta: {
-      title: "Amaïa · Inicio",
+      title: "Amaïa · Gestación creativa: del misterio a la materia",
       description:
-        "Amaïa acompaña la gestación creativa: el tiempo en que algo que intuyes se convierte en algo que existe.",
+        "Amaïa acompaña la gestación creativa: el tiempo en que algo que intuyes se convierte en algo que existe. Amaïa Studio y Amaïa Rituals.",
     },
     hero: {
       imageAlt: "Bodegón de tulipanes morados y muguet sobre fondo verde musgo",
@@ -165,9 +165,9 @@ export const homeContent: Localized<HomeContent> = {
   },
   en: {
     meta: {
-      title: "Amaïa · Home",
+      title: "Amaïa · Creative gestation: from mystery to matter",
       description:
-        "Amaïa accompanies creative gestation: the time in which something you sense becomes something that exists.",
+        "Amaïa accompanies creative gestation: the time in which something you sense becomes something that exists. Amaïa Studio and Amaïa Rituals.",
     },
     hero: {
       imageAlt:

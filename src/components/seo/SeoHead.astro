@@ -1,0 +1,96 @@
+---
+import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+import portrait from "../../assets/images/about-hero-portrait.jpg";
+import wordmarkDark from "../../assets/brand/wordmark-dark.png";
+import { locales, type Locale } from "../../i18n/locales";
+import type { PageKey } from "../../i18n/routes";
+import { seo } from "../../i18n/seo";
+import { pageGraph, pageUrl, type JsonLdNode } from "../../lib/structured-data";
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  page: PageKey;
+  /** Picture shown when the page is shared; cropped to 1200×630. */
+  image: { src: ImageMetadata; alt: string };
+  structuredData?: readonly JsonLdNode[];
+}
+
+const { title, description, locale, page, image, structuredData } = Astro.props;
+const site = Astro.site;
+if (!site)
+  throw new Error(
+    "`site` must be set in astro.config.mjs: canonical and social URLs need it.",
+  );
+
+const absolute = (path: string): string => new URL(path, site).href;
+const canonical = pageUrl(site, page, locale);
+
+const [shareImage, logo, portraitImage] = await Promise.all([
+  getImage({ src: image.src, width: 1200, height: 630, format: "jpg" }),
+  getImage({ src: wordmarkDark, format: "png" }),
+  getImage({ src: portrait, width: 800, format: "jpg" }),
+]);
+const shareImageUrl = absolute(shareImage.src);
+
+const graph = pageGraph({
+  site,
+  locale,
+  page,
+  title,
+  description,
+  imageUrl: shareImageUrl,
+  logoUrl: absolute(logo.src),
+  portraitUrl: absolute(portraitImage.src),
+  ...(structuredData ? { extra: structuredData } : {}),
+});
+// Our own data, serialized here: escaping "<" keeps it from ever closing the script tag.
+const jsonLd = JSON.stringify(graph).replace(/</g, "\\u003c");
+const otherLocales = locales.filter((code) => code !== locale);
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta
+  name="robots"
+  content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+/>
+
+{/* Every language version points to all the others; Spanish is the default for other languages. */}
+{locales.map((code) => (
+  <link rel="alternate" hreflang={code} href={pageUrl(site, page, code)} />
+))}
+<link rel="alternate" hreflang="x-default" href={pageUrl(site, page, "es")} />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Amaïa" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={seo[locale].ogLocale} />
+{otherLocales.map((code) => (
+  <meta property="og:locale:alternate" content={seo[code].ogLocale} />
+))}
+<meta property="og:image" content={shareImageUrl} />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={image.alt} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={shareImageUrl} />
+<meta name="twitter:image:alt" content={image.alt} />
+
+<meta name="theme-color" content="#3d2036" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+{/* eslint-disable-next-line astro/no-set-html-directive -- trusted, escaped JSON built above */}
+<script type="application/ld+json" set:html={jsonLd} />

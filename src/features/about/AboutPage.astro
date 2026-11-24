@@ -28,6 +28,8 @@ const { meta, hero, closing } = aboutContent[locale];
   title={meta.title}
   description={meta.description}
   locale={locale}
+  page="about"
+  image={{ src: portraitImage, alt: hero.portraitAlt }}
   class="bg-stone"
 >
   <main class="flex min-h-screen w-full flex-col bg-stone text-ink">
@@ -38,7 +40,7 @@ const { meta, hero, closing } = aboutContent[locale];
       title={hero.title}
       startWord={hero.startWord}
       endWord={hero.endWord}
-      class="bg-stone text-ink md:gap-14"
+      class="bg-stone text-ink max-md:pb-0 md:gap-14"
       wordsClass="text-64 md:text-128"
       startWordClass="-mt-[0.14em] text-aubergine"
       endWordClass="text-plum italic"
@@ -49,11 +51,12 @@ const { meta, hero, closing } = aboutContent[locale];
         widths={[432, 864, 1200]}
         sizes="(max-width: 760px) 78vw, 432px"
         loading="eager"
+        fetchpriority="high"
         class="block aspect-3/4 w-full object-cover"
       />
       <figcaption
         class:list={[
-          "absolute top-full left-0 mt-3 font-sans whitespace-nowrap text-ink-soft",
+          "mt-2.5 block font-sans whitespace-nowrap text-ink-soft md:absolute md:top-full md:left-0 md:mt-3",
           labelText,
         ]}
       >
@@ -65,7 +68,7 @@ const { meta, hero, closing } = aboutContent[locale];
     <MultiplicitySection locale={locale} />
     <section
       id="cierre"
-      class="flex flex-1 flex-col justify-between gap-30 bg-lavender py-18 text-ink md:min-h-180 md:pt-50 md:pb-12"
+      class="flex flex-1 flex-col justify-between gap-16 bg-lavender py-13 text-ink md:min-h-180 md:gap-30 md:pt-50 md:pb-12"
     >
       <Grid startOnMobile class="items-start gap-y-12">
         <p
@@ -105,6 +108,7 @@ const { meta, hero, closing } = aboutContent[locale];
         tone="dark"
         next={{ page: "studio", title: closing.next }}
         mobileAlign="start"
+        leftOnMobile
       />
     </section>
   </main>

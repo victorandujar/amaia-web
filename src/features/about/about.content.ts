@@ -40,9 +40,9 @@ interface AboutContent {
 export const aboutContent: Localized<AboutContent> = {
   es: {
     meta: {
-      title: "Amaïa · Sobre mí",
+      title: "Sobre mí · María Alejandra Amaya, mística creativa · Amaïa",
       description:
-        "Soy María Alejandra Amaya: diseñadora de formación, investigadora de oficio y curiosa por naturaleza. Una mística creativa.",
+        "Soy María Alejandra Amaya, colombiana, viviendo en Catalunya. Diseñadora de formación, investigadora de oficio y curiosa por naturaleza.",
     },
     hero: {
       title: "Mística creativa.",
@@ -117,9 +117,9 @@ export const aboutContent: Localized<AboutContent> = {
   },
   en: {
     meta: {
-      title: "Amaïa · About me",
+      title: "About me · María Alejandra Amaya, creative mystic · Amaïa",
       description:
-        "I am María Alejandra Amaya: a designer by training, a researcher by craft and curious by nature. A creative mystic.",
+        "I am María Alejandra Amaya, Colombian, living in Catalonia. A designer by training, a researcher by craft and curious by nature.",
     },
     hero: {
       title: "Creative mystic.",

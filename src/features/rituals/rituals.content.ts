@@ -43,7 +43,7 @@ interface RitualsContent {
 export const ritualsContent: Localized<RitualsContent> = {
   es: {
     meta: {
-      title: "Amaïa Rituals",
+      title: "Amaïa Rituals · Exploración sensible y espiritual",
       description:
         "Amaïa Rituals es un espacio de exploración sensible, energética y espiritual. Nace de mi fascinación por el misterio de estar vivos.",
     },
@@ -127,12 +127,12 @@ export const ritualsContent: Localized<RitualsContent> = {
       title: ["Que nunca nos abandone ", { em: "el asombro." }],
       body: "Hay tanto por descubrir de nuestra existencia. Me encantará explorar una parte contigo.",
       cta: "Escríbeme",
-      next: "Sobre mí",
+      next: "Manifiesto",
     },
   },
   en: {
     meta: {
-      title: "Amaïa Rituals",
+      title: "Amaïa Rituals · Sensitive and spiritual exploration",
       description:
         "Amaïa Rituals is a space for sensitive, energetic and spiritual exploration. It is born from my fascination with the mystery of being alive.",
     },
@@ -209,7 +209,7 @@ export const ritualsContent: Localized<RitualsContent> = {
       title: ["May ", { em: "wonder" }, " never leave us."],
       body: "There is so much to discover about our existence. I would love to explore a part of it with you.",
       cta: "Write to me",
-      next: "About me",
+      next: "Manifesto",
     },
   },
 };

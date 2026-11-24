@@ -13,10 +13,11 @@ interface Props {
   /** Distance from the top of the screen to the header content. */
   class?: string;
   /**
-   * Inner pages lay their hero out below the header: an invisible copy keeps that space,
-   * so the hero looks exactly as designed while the real header floats above.
+   * Inner pages lay their content out below the header: an invisible copy keeps that space,
+   * so the page looks exactly as designed while the real header floats above.
+   * The value is the copy's top padding.
    */
-  reserveSpace?: boolean;
+  reserveSpace?: "pt-2" | "pt-6";
 }
 
 const {
@@ -25,7 +26,7 @@ const {
   tone,
   logo,
   class: className,
-  reserveSpace = false,
+  reserveSpace,
 } = Astro.props;
 const layout =
   "flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-5 md:gap-y-3 md:px-12";
@@ -57,7 +58,11 @@ const menuId = "mobile-menu";
   </div>
 </div>
 {reserveSpace && (
-  <div aria-hidden="true" inert class:list={["invisible pt-2", layout]}>
+  <div
+    aria-hidden="true"
+    inert
+    class:list={["invisible", reserveSpace, layout]}
+  >
     <HeaderBar locale={locale} page={page} logo={logo} menuId={menuId} />
   </div>
 )}

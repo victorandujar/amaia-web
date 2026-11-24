@@ -19,9 +19,17 @@ interface Props {
   next?: { page: PageKey; title: string };
   /** Inner pages align footer items to the start on mobile; the home page stretches them. */
   mobileAlign?: "start" | "stretch";
+  /** Sobre mí and Manifiesto: on mobile the next-page link spans the row and the links start on the left. */
+  leftOnMobile?: boolean;
 }
 
-const { locale, tone, next, mobileAlign = "stretch" } = Astro.props;
+const {
+  locale,
+  tone,
+  next,
+  mobileAlign = "stretch",
+  leftOnMobile = false,
+} = Astro.props;
 const t = ui[locale];
 
 const toneClasses: Record<
@@ -63,7 +71,7 @@ const footerLinks = [
       class:list={[
         "col-span-full mb-10 flex items-baseline justify-between gap-6 border-t pt-3.5",
         tones.next,
-        itemAlign,
+        leftOnMobile ? "" : itemAlign,
       ]}
     >
       <span class={labelText}>{t.next}</span>
@@ -94,7 +102,8 @@ const footerLinks = [
   <nav
     aria-label={t.footerNavLabel}
     class:list={[
-      "col-span-full flex flex-wrap justify-end gap-x-5 md:col-span-5 md:col-start-8",
+      "col-span-full flex flex-wrap gap-x-5 md:col-span-5 md:col-start-8 md:justify-end",
+      leftOnMobile ? "justify-start" : "justify-end",
       labelText,
       tones.text,
       itemAlign,

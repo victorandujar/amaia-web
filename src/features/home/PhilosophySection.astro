@@ -9,7 +9,7 @@ import RichText from "../../components/ui/RichText.astro";
 import SectionLabel from "../../components/ui/SectionLabel.astro";
 import UnderlineLink from "../../components/ui/UnderlineLink.astro";
 import type { Locale } from "../../i18n/locales";
-import { links } from "../../lib/links";
+import { pagePath } from "../../i18n/routes";
 import { reveal } from "../../lib/motion";
 import { displayText } from "../../lib/typography";
 import { homeContent } from "./home.content";
@@ -93,7 +93,7 @@ const pairs = [
       ]}
     >
       <p class="m-0 text-17 leading-150 md:text-20">{philosophy.body}</p>
-      <UnderlineLink href={links.manifesto} rule="current">
+      <UnderlineLink href={pagePath("manifesto", locale)} rule="current">
         {philosophy.cta}
       </UnderlineLink>
     </div>

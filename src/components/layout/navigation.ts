@@ -1,9 +1,9 @@
 import type { Locale } from "../../i18n/locales";
-import { manifestoPath, pagePath, type PageKey } from "../../i18n/routes";
+import { pagePath, type PageKey } from "../../i18n/routes";
 import { ui } from "../../i18n/ui";
 
 export interface NavItem {
-  key: PageKey | "manifesto";
+  key: PageKey;
   label: string;
   href: string;
 }
@@ -14,7 +14,11 @@ export function primaryNavItems(locale: Locale): NavItem[] {
   return [
     { key: "studio", label: nav.studio, href: pagePath("studio", locale) },
     { key: "rituals", label: nav.rituals, href: pagePath("rituals", locale) },
-    { key: "manifesto", label: nav.manifesto, href: manifestoPath(locale) },
+    {
+      key: "manifesto",
+      label: nav.manifesto,
+      href: pagePath("manifesto", locale),
+    },
     { key: "about", label: nav.about, href: pagePath("about", locale) },
   ];
 }

@@ -6,6 +6,7 @@ import InnerHero from "../../components/sections/InnerHero.astro";
 import type { Locale } from "../../i18n/locales";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { whatsappLink } from "../../lib/links";
+import { serviceNode } from "../../lib/structured-data";
 import { grain } from "../../lib/texture";
 import CraftSection from "./CraftSection.astro";
 import ServicesSection from "./ServicesSection.astro";
@@ -17,13 +18,31 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const { meta, hero, closing } = studioContent[locale];
+const { meta, hero, closing, services } = studioContent[locale];
+const site = Astro.site;
+const offerings = [
+  { id: "mystery-of-form", service: services.mysteryOfForm },
+  { id: "creative-correspondences", service: services.creativeCorrespondences },
+];
+const structuredData = site
+  ? offerings.map(({ id, service }) =>
+      serviceNode(site, locale, "studio", {
+        id,
+        name: service.title,
+        serviceType: service.label,
+        description: service.paragraphs.join(" "),
+      }),
+    )
+  : [];
 ---
 
 <BaseLayout
   title={meta.title}
   description={meta.description}
   locale={locale}
+  page="studio"
+  image={{ src: heroImage, alt: hero.imageAlt }}
+  structuredData={structuredData}
   class="bg-eucalyptus"
 >
   <main class="flex min-h-screen w-full flex-col bg-ivory text-ink">
@@ -44,6 +63,7 @@ const { meta, hero, closing } = studioContent[locale];
           widths={[432, 864]}
           sizes="(max-width: 760px) 78vw, 432px"
           loading="eager"
+          fetchpriority="high"
           class="block aspect-3/4 w-full object-cover saturate-85"
         />
       </span>

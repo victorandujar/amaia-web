@@ -40,7 +40,7 @@ interface StudioContent {
 export const studioContent: Localized<StudioContent> = {
   es: {
     meta: {
-      title: "Amaïa Studio",
+      title: "Amaïa Studio · Investigación y gestación creativa",
       description:
         "Amaïa Studio es un espacio de investigación y gestación creativa donde exploro los misterios de la creación y las formas que puede adquirir lo sensible.",
     },
@@ -124,7 +124,7 @@ export const studioContent: Localized<StudioContent> = {
   },
   en: {
     meta: {
-      title: "Amaïa Studio",
+      title: "Amaïa Studio · Research and creative gestation",
       description:
         "Amaïa Studio is a space for research and creative gestation where I explore the mysteries of creation and the forms the sensible can take.",
     },

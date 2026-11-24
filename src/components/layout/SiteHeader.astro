@@ -2,6 +2,7 @@
 import type { Locale } from "../../i18n/locales";
 import type { PageKey } from "../../i18n/routes";
 import HeaderBar from "./HeaderBar.astro";
+import MobileMenu from "./MobileMenu.astro";
 
 interface Props {
   locale: Locale;
@@ -28,33 +29,47 @@ const {
 } = Astro.props;
 const layout =
   "flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-5 md:gap-y-3 md:px-12";
+const menuId = "mobile-menu";
 ---
 
 {/*
-  Always visible at the top of the screen as glass: a blur over the page, with no fill.
-  It starts in the page's own color and switches to light or dark text depending on the
-  section beneath it, so it stays readable everywhere.
+  The header and the mobile menu share one tone and one open state. The wrapper adds no box
+  (`contents`): a blurred header would otherwise trap the fixed menu inside its own area.
 */}
-<header
-  data-site-header
-  data-tone={tone}
-  class:list={[
-    "group fixed inset-x-0 top-0 z-40 pb-3 text-cream backdrop-blur-md transition-colors duration-300 data-[tone=dark]:text-ink",
-    layout,
-    className,
-  ]}
->
-  <HeaderBar locale={locale} page={page} logo={logo} />
-</header>
+<div data-site-header data-tone={tone} class="group contents">
+  {/*
+    Always visible at the top of the screen as glass: a blur over the page, with no fill.
+    It starts in the page's own color and switches to light or dark text depending on the
+    section beneath it, so it stays readable everywhere.
+  */}
+  <header
+    data-header-bar
+    class:list={[
+      "fixed inset-x-0 top-0 z-40 pb-3 text-cream backdrop-blur-md transition-colors duration-300 group-data-[tone=dark]:text-ink",
+      layout,
+      className,
+    ]}
+  >
+    <HeaderBar locale={locale} page={page} logo={logo} menuId={menuId} />
+  </header>
+  <div class="contents text-cream group-data-[tone=dark]:text-ink">
+    <MobileMenu id={menuId} locale={locale} page={page} />
+  </div>
+</div>
 {reserveSpace && (
   <div aria-hidden="true" inert class:list={["invisible pt-2", layout]}>
-    <HeaderBar locale={locale} page={page} logo={logo} />
+    <HeaderBar locale={locale} page={page} logo={logo} menuId={menuId} />
   </div>
 )}
 
 <script>
   import { followBackground } from "./header-tone";
+  import { setupMobileMenu } from "./mobile-menu";
 
-  const header = document.querySelector<HTMLElement>("[data-site-header]");
-  if (header) followBackground(header);
+  const root = document.querySelector<HTMLElement>("[data-site-header]");
+  const bar = root?.querySelector<HTMLElement>("[data-header-bar]");
+  if (root && bar) {
+    followBackground(root, bar);
+    setupMobileMenu(root);
+  }
 </script>

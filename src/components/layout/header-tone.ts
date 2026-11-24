@@ -15,11 +15,11 @@ function toRgba(color: string): [number, number, number, number] | null {
   return [r, g, b, a];
 }
 
-/** Nearest opaque background painted at a point of the screen, ignoring the header itself. */
-function backgroundAt(x: number, y: number, header: HTMLElement): Rgb | null {
+/** Nearest opaque background painted at a point of the screen, ignoring the header and its menu. */
+function backgroundAt(x: number, y: number, root: HTMLElement): Rgb | null {
   const element = document
     .elementsFromPoint(x, y)
-    .find((candidate) => !header.contains(candidate));
+    .find((candidate) => !root.contains(candidate));
   for (
     let node: Element | null = element ?? null;
     node;
@@ -36,18 +36,21 @@ function toneFor([r, g, b]: Rgb): Tone {
   return luminance < 0.5 ? "light" : "dark";
 }
 
-/** Keeps the header's text readable over whatever section lies beneath it. */
-export function followBackground(header: HTMLElement): void {
+/**
+ * Keeps the header's text readable over whatever section lies beneath it.
+ * The tone is set on `root`, which holds the header bar and the mobile menu.
+ */
+export function followBackground(root: HTMLElement, bar: HTMLElement): void {
   let pending = false;
 
   const update = (): void => {
     pending = false;
     const background = backgroundAt(
       window.innerWidth / 2,
-      header.offsetHeight / 2,
-      header,
+      bar.offsetHeight / 2,
+      root,
     );
-    if (background) header.dataset.tone = toneFor(background);
+    if (background) root.dataset.tone = toneFor(background);
   };
 
   const schedule = (): void => {

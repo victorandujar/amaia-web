@@ -1,0 +1,94 @@
+---
+import type { Locale } from "../../i18n/locales";
+import { pagePath, type PageKey } from "../../i18n/routes";
+import { ui } from "../../i18n/ui";
+import { whatsappLink } from "../../lib/links";
+import { labelText } from "../../lib/typography";
+import { otherLocale, primaryNavItems } from "./navigation";
+
+interface Props {
+  id: string;
+  locale: Locale;
+  page: PageKey;
+}
+
+const { id, locale, page } = Astro.props;
+const t = ui[locale];
+const alternate = otherLocale(locale);
+const items = primaryNavItems(locale);
+
+/*
+ * Each entry surfaces from a blur, one after another, when the menu opens (the site's
+ * "aparecer" motion); closing drops the delays so everything leaves together.
+ */
+const entry =
+  "translate-x-6 opacity-0 blur-veil transition-[translate,opacity,filter] duration-700 ease-materia motion-reduce:transition-none group-data-open:translate-x-0 group-data-open:opacity-100 group-data-open:blur-none";
+const entryDelays = [
+  "group-data-open:delay-100",
+  "group-data-open:delay-150",
+  "group-data-open:delay-200",
+  "group-data-open:delay-250",
+  "group-data-open:delay-300",
+  "group-data-open:delay-350",
+];
+const dot =
+  "size-1.5 flex-none rounded-full bg-lilac group-data-[tone=dark]:bg-plum";
+---
+
+{/* Tapping outside the menu closes it. */}
+<div
+  data-menu-backdrop
+  aria-hidden="true"
+  class="pointer-events-none fixed inset-0 z-30 md:hidden group-data-open:pointer-events-auto"
+></div>
+{/*
+  Mobile only. A glass sidebar like the header: no fill, a blur over the page. It slides in
+  from the right under the header, so the burger turned into an X stays reachable.
+*/}
+<nav
+  {id}
+  data-menu
+  aria-label={t.primaryNavLabel}
+  inert
+  class="fixed inset-y-0 right-0 z-30 flex w-full max-w-80 translate-x-full flex-col gap-10 overflow-y-auto px-5 pt-28 pb-10 opacity-0 backdrop-blur-xl transition-[translate,opacity] duration-500 ease-materia motion-reduce:transition-none md:hidden group-data-open:translate-x-0 group-data-open:opacity-100"
+>
+  <ul class="m-0 flex list-none flex-col border-b border-current/25 p-0">
+    {items.map((item, index) => (
+      <li
+        class:list={["border-t border-current/25", entry, entryDelays[index]]}
+      >
+        <a
+          href={item.href}
+          aria-current={item.key === page ? "page" : undefined}
+          class="flex min-h-11 items-center gap-3 py-4 font-display text-36 leading-100 font-light tracking-display"
+        >
+          {item.label}
+          {item.key === page && <span aria-hidden="true" class={dot} />}
+        </a>
+      </li>
+    ))}
+  </ul>
+  <div
+    class:list={[
+      "mt-auto flex flex-col items-start gap-5",
+      entry,
+      entryDelays[items.length],
+    ]}
+  >
+    <a
+      href={pagePath(page, alternate)}
+      hreflang={alternate}
+      class:list={["inline-flex min-h-11 items-center", labelText]}
+    >
+      <span lang={alternate}>{t.languageSwitch.label}</span>
+    </a>
+    <a
+      href={whatsappLink(locale, "contact")}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="box-content inline-flex min-h-12 items-center border border-cream/80 px-6 text-15 font-medium group-data-[tone=dark]:border-ink/70"
+    >
+      {t.writeToMe}
+    </a>
+  </div>
+</nav>

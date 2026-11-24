@@ -8,6 +8,8 @@ interface UiStrings {
   nav: { studio: string; rituals: string; manifesto: string; about: string };
   writeToMe: string;
   languageSwitch: { text: string; label: string };
+  /** Mobile menu button labels. */
+  menu: { open: string; close: string };
   scrollHint: string;
   next: string;
   tagline: string;
@@ -36,6 +38,7 @@ export const ui: Localized<UiStrings> = {
     },
     writeToMe: "Escríbeme",
     languageSwitch: { text: "en", label: "English version" },
+    menu: { open: "Abrir menú", close: "Cerrar menú" },
     scrollHint: "desliza ↓",
     next: "siguiente",
     tagline: "La vida con rituales es más sabrosa.",
@@ -64,6 +67,7 @@ export const ui: Localized<UiStrings> = {
     },
     writeToMe: "Write to me",
     languageSwitch: { text: "es", label: "Versión en español" },
+    menu: { open: "Open menu", close: "Close menu" },
     scrollHint: "scroll ↓",
     next: "next",
     tagline: "Life tastes better with rituals.",

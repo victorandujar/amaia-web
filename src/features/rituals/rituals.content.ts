@@ -127,7 +127,7 @@ export const ritualsContent: Localized<RitualsContent> = {
       title: ["Que nunca nos abandone ", { em: "el asombro." }],
       body: "Hay tanto por descubrir de nuestra existencia. Me encantará explorar una parte contigo.",
       cta: "Escríbeme",
-      next: "Sobre mí",
+      next: "Manifiesto",
     },
   },
   en: {
@@ -209,7 +209,7 @@ export const ritualsContent: Localized<RitualsContent> = {
       title: ["May ", { em: "wonder" }, " never leave us."],
       body: "There is so much to discover about our existence. I would love to explore a part of it with you.",
       cta: "Write to me",
-      next: "About me",
+      next: "Manifesto",
     },
   },
 };

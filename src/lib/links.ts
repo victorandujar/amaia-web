@@ -11,7 +11,6 @@ export const links = {
   substack: "https://mariamayangel.substack.com/",
   legal: "#legal",
   privacy: "#privacidad",
-  manifesto: "#manifiesto",
   professionalPath: "https://www.mariamayangel.com/en/about",
   theFieldConversation: "https://substack.com/@mariamayangel/p-208656939",
 } as const;

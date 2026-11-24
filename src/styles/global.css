@@ -23,6 +23,7 @@
   --color-ink: #241c21;
   --color-ink-soft: #3b2a2e;
   --color-ink-plum: #362545;
+  --color-ink-mute: #5a4f55;
   --color-shade: #1e181b;
   --color-night: #2e2329;
   --color-forest: #2c3128;
@@ -33,6 +34,7 @@
   --color-lilac: #cbb8e6;
 
   --text-11: 11px;
+  --text-13: 13px;
   --text-14: 14px;
   --text-15: 15px;
   --text-16: 16px;
@@ -79,6 +81,7 @@
   --leading-112: 1.12;
   --leading-115: 1.15;
   --leading-116: 1.16;
+  --leading-120: 1.2;
   --leading-130: 1.3;
   --leading-140: 1.4;
   --leading-145: 1.45;
@@ -86,6 +89,7 @@
   --leading-155: 1.55;
   --leading-160: 1.6;
   --leading-162: 1.62;
+  --leading-165: 1.65;
 
   --tracking-display: -0.02em;
   --tracking-snug: -0.01em;

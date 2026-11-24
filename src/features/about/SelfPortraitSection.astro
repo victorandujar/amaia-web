@@ -15,7 +15,7 @@ const { locale } = Astro.props;
 const { selfPortrait } = aboutContent[locale];
 ---
 
-<section id="autorretrato" class="bg-stone py-18 text-ink md:pt-26 md:pb-28">
+<section id="autorretrato" class="bg-stone py-13 text-ink md:pt-26 md:pb-28">
   <Grid startOnMobile class="items-start gap-y-10">
     <SectionLabel class="col-span-full border-ink/25 text-ink-soft" />
     <p
@@ -26,7 +26,7 @@ const { selfPortrait } = aboutContent[locale];
         reveal,
       ]}
     >
-      <RichText text={selfPortrait.statement} />
+      <RichText text={selfPortrait.statement} brClass="max-md:hidden" />
     </p>
     <div
       data-reveal
